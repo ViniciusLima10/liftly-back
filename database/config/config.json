@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "admin",
+    "password": "securepassword",
+    "database": "gymapp",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "admin",
+    "password": "securepassword",
+    "database": "gymapp_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "admin",
+    "password": "securepassword",
+    "database": "gymapp_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
