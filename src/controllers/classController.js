@@ -1,6 +1,6 @@
 const { Class } = require('../models');
 
-const createClasse = async (req, res) => {
+const createClass = async (req, res) => {
   try {
     const newClass = await Class.create(req.body);
     res.status(201).json(newClass);
@@ -18,7 +18,7 @@ const getClasses = async (req, res) => {
   }
 };
 
-const getClasseById = async (req, res) => {
+const getClassById = async (req, res) => {
   try {
     const classInstance = await Class.findByPk(req.params.id);
     if (!classInstance) {
@@ -30,7 +30,7 @@ const getClasseById = async (req, res) => {
   }
 };
 
-const updateClasse = async (req, res) => {
+const updateClass = async (req, res) => {
   try {
     const classInstance = await Class.findByPk(req.params.id);
     if (!classInstance) {
@@ -43,7 +43,7 @@ const updateClasse = async (req, res) => {
   }
 };
 
-const deleteClasse = async (req, res) => {
+const deleteClass = async (req, res) => {
   try {
     const classInstance = await Class.findByPk(req.params.id);
     if (!classInstance) {
@@ -56,4 +56,4 @@ const deleteClasse = async (req, res) => {
   }
 };
 
-module.exports = { createClasse, getClasses, getClasseById, updateClasse, deleteClasse };
+module.exports = { createClass, getClasses, getClassById, updateClass, deleteClass };
