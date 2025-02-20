@@ -52,6 +52,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
+  User.associate = function(models) {
+    User.belongsToMany(models.Gym, {
+      through: 'UserGym',
+      foreignKey: 'userId',
+      as: 'gyms',
+    });
+  };
+
   // Método para validar a senha
   User.prototype.validatePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
