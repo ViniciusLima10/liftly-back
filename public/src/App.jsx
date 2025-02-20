@@ -9,6 +9,7 @@ import LoginPersonal from "./pages/LoginPersonal";
 import ProfilePage from "./pages/ProfileAluno";
 import ProfileAdm from "./pages/ProfileAdm";
 import ProfilePersonal from "./pages/ProfilePersonal";
+import ClassesAluno from "./pages/Classes";
 
 
 
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/perfilAluno" element={<ProfilePage />} />
                 <Route path="/perfilAdm" element={<ProfileAdm />} />
                 <Route path="/perfilPersonal" element={<ProfilePersonal />} />
+                <Route path="/aulasAluno" element={<ClassesAluno/>} />
                 
         
               
