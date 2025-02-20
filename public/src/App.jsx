@@ -7,6 +7,12 @@ import LoginAluno from "./pages/LoginAluno";
 import LoginAdm from "./pages/LoginAdm";
 import LoginPersonal from "./pages/LoginPersonal";
 import ClassesAdm from "./pages/ClassesAdm";
+import ClassesAluno from "./pages/Classes";
+import TreinoPage from "./pages/Treino";
+import ProfilePage from "./pages/ProfileAluno";
+import ProfileAdm from "./pages/ProfileAdm";
+import ProfilePersonal from "./pages/ProfilePersonal";
+import ClassesAluno from "./pages/Classes";
 
 
 
@@ -17,18 +23,24 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home/>} />
                 <Route path="/MenuAluno" element={<HomePage/>} />
-                <Route path="/HomePageAdm" element={<HomePageAdm/>} />
+                <Route path="/MenuAdm" element={<HomePageAdm/>} />
                 <Route path="/loginAluno" element={<LoginAluno />} />
                 <Route path="/loginAdm" element={<LoginAdm />} />
                 <Route path="/loginPersonal" element={<LoginPersonal />} />
                 <Route path="/EditarAulas" element={<ClassesAdm />} />
-                
+                <Route path="/aulasAluno" element={<ClassesAluno />} />
+                <Route path="/treino" element={<TreinoPage />} />
+                <Route path="/perfilAluno" element={<ProfilePage />} />
+                <Route path="/perfilAdm" element={<ProfileAdm />} />
+                <Route path="/perfilPersonal" element={<ProfilePersonal />} />
+                <Route path="/aulasAluno" element={<ClassesAluno/>} />
+               
         
               
 
             </Routes>
         </Router>
     );
-}
+} 
 
 export default App;
