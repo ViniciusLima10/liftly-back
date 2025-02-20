@@ -8,7 +8,7 @@ const Header = () => {
     return (
         <div className="header">
             <span></span>
-            <button className="user-button" onClick={() => navigate("/perfil")}>
+            <button className="user-button" onClick={() => navigate("/perfilAluno")}>
                 Olá, Julia
             </button>
         </div>
