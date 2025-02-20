@@ -13,7 +13,7 @@ const HomePageAdm = () => {
       <Header />
       <Sidebar />
       <div className="main-content">
-        <h2>Bem vindo Adm</h2>
+        <h2 className="titulo">Bem vindo Adm</h2>
 
         <div className="dashboard-cards">
           <div className="card">
