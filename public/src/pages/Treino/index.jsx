@@ -108,4 +108,5 @@ const TreinoPage = () => {
   );
 };
 
+
 export default TreinoPage;

@@ -21,7 +21,7 @@ const Sidebar = () => {
           </button>
         </li>
         <li>
-          <button className="sidebar-btn" onClick={() => navigate("/")}>
+          <button className="sidebar-btn" onClick={() => navigate("/aulasAluno")}>
             <FaClipboardList /> Aulas
           </button>
         </li>
