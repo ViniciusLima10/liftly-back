@@ -1,60 +1,58 @@
+/* Define o fundo azul cobrindo toda a tela */
 .login-container {
+    width: 100%;
+    height: 100vh; /* Ocupa toda a tela */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #8fc4fc; /* Cor azul */
     text-align: center;
 }
 
+/* Estiliza o título */
 .login-container h1 {
-    text-align: center;
-    font-size:  30px;
-    color: #fff;
+    font-size: 32px;
+    color: white;
+    margin-bottom: 20px;
 }
 
-.login-container .input-field {
+/* Agrupa os campos de entrada */
+.input-field {
     position: relative;
-    width: 100%;
-    height: 50px;
-    margin: 30px auto;
+    width: 350px;
+    margin-bottom: 15px;
 }
 
-.input-field input{
+/* Estiliza os campos de entrada */
+.input-field input {
     width: 100%;
-    height: 100%;
-    background-color: #fff;
-    outline: none;
-    border: 2px solid rgba(100, 100, 100, 0.2);
-    border-radius: 15px;
+    padding: 12px;
+    padding-left: 40px;
     font-size: 16px;
-    color: black;
-    padding: 20px 45px;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    background: white;
 }
 
-.input-field input::placeholder {
-    color: black;
-}
-
+/* Ícones dentro dos inputs */
 .input-field .icon {
     position: absolute;
-    left: 25px;
+    left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 16px;
+    color: black;
 }
 
-.login-container .recall-forget {
-    display: flex;
-    font-size: 14.5px;
-    margin: -15px 0 15px;
-}
-
-.recall-forget label {
-    color: #fff;
-}
-
-.recall-forget input {
-    margin-right: 5px;
+/* Estiliza o link "Esqueceu a senha?" */
+.recall-forget {
+    font-size: 14px;
+    margin-bottom: 20px;
 }
 
 .recall-forget a {
-    color: black;
+    color: white;
     text-decoration: none;
 }
 
@@ -62,40 +60,43 @@
     text-decoration: underline;
 }
 
+/* Botão de entrar */
 .login-container button {
-    width: 80%;
-    height: 50px;
-    background-color: #fff;
-    border:  none;
-    outline: none;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
+    width: 350px;
+    padding: 12px;
+    background: white;
+    color: #8fc4fc;
+    border: none;
+    border-radius: 25px;
     font-size: 16px;
     font-weight: 600;
-    text-shadow: none;
-    display: block;
-    margin: 0 auto;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
 .login-container button:hover {
-    background-color: darkgray;
+    background: #f0f0f0;
 }
 
-.erro-message {
+/* Estiliza a mensagem de erro */
+.error-message {
     color: red;
     font-size: 14px;
-    text-align: center;
     margin-bottom: 10px;
 }
 
+/* Estiliza o botão de cadastro */
 .register-btn {
-    margin: 20px auto 0;
+    background: white;
+    color: #28a745;
+    margin-top: 10px;
 }
 
-.register-txt {
-    text-align: center;
-    
-    font-size: 14.5px;
-    margin: 15px 0 15px;
+.register-btn:hover {
+    background: #dff0d8;
+}
+
+.register-txt{
+    color: white;
+    margin-top: 30px;
 }
