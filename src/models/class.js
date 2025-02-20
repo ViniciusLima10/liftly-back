@@ -11,14 +11,22 @@ module.exports = (sequelize, DataTypes) => {
       gymId: {
         type: DataTypes.UUID,
         allowNull: false,
+        references: {
+          model: 'Gyms',
+          key: 'id',
+        },
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      instructor: {
-        type: DataTypes.STRING,
+      instructorId: {
+        type: DataTypes.UUID,
         allowNull: false,
+        references: {
+          model: 'Users',  // Relacionando com a tabela Users
+          key: 'id',
+        },
       },
       startTime: {
         type: DataTypes.DATE,
@@ -44,6 +52,12 @@ module.exports = (sequelize, DataTypes) => {
     Class.belongsTo(models.Gym, {
       foreignKey: 'gymId',
       as: 'gym',
+      onDelete: 'CASCADE',
+    });
+
+    Class.belongsTo(models.User, {
+      foreignKey: 'instructorId', // Associação do professor à classe
+      as: 'instructor',
       onDelete: 'CASCADE',
     });
   };
