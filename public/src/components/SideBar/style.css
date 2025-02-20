@@ -1,0 +1,105 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribui os itens */
+    align-items: center;
+    width: 250px; /* Ajuste conforme necessário */
+    height: 100vh; /* Ocupa toda a altura da tela */
+    background-color:  rgb(109, 165, 218);
+    padding: 20px 0;
+    color: white;
+}
+
+
+/*menu*/
+.sidebar a {
+    text-decoration: none; /* Remove o sublinhado */
+    color: rgb(166, 165, 245); /* Altera a cor do texto para branco */
+    font-size: 24px;
+}
+
+.sidebar a:hover {
+    color: #f4f4f4; /* Ajuste a cor ao passar o mouse */
+}
+
+.sidebar ul {
+    list-style: none; /* Remove os pontos da lista */
+    padding: 0;
+    margin: 20px 0; /* Adiciona um pequeno espaçamento acima e abaixo */
+}
+
+.sidebar ul li {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adiciona espaçamento entre o ícone e o texto */
+    padding: 10px 0; /* Adiciona espaçamento vertical entre os itens */
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: white; /* Mantém o texto branco */
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.sidebar ul li a:hover {
+    color: #f4f4f4; /* Efeito ao passar o mouse */
+}
+
+
+/*icones das redes sociais*/
+.social-icons a {
+    text-decoration: none;
+    color: white; /* Deixa os ícones das redes sociais brancos */
+    font-size: 24px; /* Ajusta o tamanho dos ícones */
+}
+
+.social-icons a:hover {
+    color: #ddd; /* Torna a cor levemente mais clara ao passar o mouse */
+}
+
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Adiciona espaço entre os links */
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px; /* Espaço entre os ícones */
+    font-size: 24px; /* Ajuste o tamanho conforme necessário */
+    color: white; /* Deixa os ícones brancos */
+    margin-top: auto; /* Empurra os ícones para o final */
+    padding-bottom: 20px;
+}
+
+.social-icons a {
+    text-decoration: none;
+    color: white;
+}
+
+.social-icons a:hover {
+    color: #ddd; /* Torna os ícones um pouco mais claros ao passar o mouse */
+}
+
+/*botões do menu*/
+/* Estiliza os botões do Sidebar */
+.sidebar-btn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+}
+
+.sidebar-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}

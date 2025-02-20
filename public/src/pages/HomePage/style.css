@@ -1,0 +1,71 @@
+.main-content {
+    margin-left: 250px; /* Para não sobrepor o sidebar */
+    margin-top: 60px; /* Para não sobrepor o header */
+    padding: 20px;
+     display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os itens no eixo horizontal */
+    justify-content: center; /* Centraliza os itens no eixo vertical */
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: row;
+}
+
+.dashboard .card {
+    margin-right: 2rem;
+    width: 100%;
+}
+
+  
+.cardHome {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1;
+    margin-right: 30px;
+  }
+
+    
+.cardBarChart {
+    background: white;
+    padding: 20px 110px 20px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    align-items: center;
+    justify-content: start;
+    flex: 1;
+  }
+
+.button{
+    background-color: rgb(109, 165, 218);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button:hover {
+    background-color: #ddd;
+}
+
+.welcome-section {
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 10px; /* Espaço abaixo do título */
+}
+
+.welcome-section h1 {
+    margin-bottom: 15px; /* Adiciona um espaço entre o título e o botão */
+}
+
+
