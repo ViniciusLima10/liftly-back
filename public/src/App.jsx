@@ -6,6 +6,7 @@ import Home from "./pages/PageInicial";
 import LoginAluno from "./pages/LoginAluno";
 import LoginAdm from "./pages/LoginAdm";
 import LoginPersonal from "./pages/LoginPersonal";
+import ClassesAdm from "./pages/ClassesAdm";
 import ClassesAluno from "./pages/Classes";
 import TreinoPage from "./pages/Treino";
 import ProfilePage from "./pages/ProfileAluno";
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/loginAluno" element={<LoginAluno />} />
                 <Route path="/loginAdm" element={<LoginAdm />} />
                 <Route path="/loginPersonal" element={<LoginPersonal />} />
+                <Route path="/EditarAulas" element={<ClassesAdm />} />
                 <Route path="/aulasAluno" element={<ClassesAluno />} />
                 <Route path="/treino" element={<TreinoPage />} />
                 <Route path="/perfilAluno" element={<ProfilePage />} />

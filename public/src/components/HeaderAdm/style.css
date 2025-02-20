@@ -1,0 +1,33 @@
+/* Estiliza o Header para ocupar toda a largura da tela, mas respeitar o Sidebar */
+.header {
+    position: absolute; /* Permite que ele fique abaixo do sidebar */
+    top: 0;
+    left: 250px; /* Garante que não sobreponha o Sidebar */
+    width: calc(100% - 250px); /* Ajusta o tamanho total, descontando a largura do sidebar */
+    height: 60px;
+    background-color: #8fc4fc; /* Estiliza o Header para ocupar toda a largura da tela, mas respeitar o Sidebar */
+   display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 0;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Mantém o header sobre o conteúdo */
+}
+
+
+/* Botão de usuário */
+.user-button {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.user-button:hover {
+    background-color: #ddd;
+}
