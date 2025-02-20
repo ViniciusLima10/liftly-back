@@ -17,11 +17,14 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
     },
-    {}
   );
 
   Gym.associate = function (models) {
-    // Associações podem ser definidas aqui
+    Gym.belongsToMany(models.User, {
+      through: 'UserGyms',
+      foreignKey: 'gymId',
+      as: 'users',
+    });
   };
 
   return Gym;
