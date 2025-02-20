@@ -1,0 +1,102 @@
+/* Define o fundo azul cobrindo toda a tela */
+.login-container {
+    width: 100%;
+    height: 100vh; /* Ocupa toda a tela */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #8fc4fc; /* Cor azul */
+    text-align: center;
+}
+
+/* Estiliza o título */
+.login-container h1 {
+    font-size: 32px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* Agrupa os campos de entrada */
+.input-field {
+    position: relative;
+    width: 350px;
+    margin-bottom: 15px;
+}
+
+/* Estiliza os campos de entrada */
+.input-field input {
+    width: 100%;
+    padding: 12px;
+    padding-left: 40px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    background: white;
+}
+
+/* Ícones dentro dos inputs */
+.input-field .icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: black;
+}
+
+/* Estiliza o link "Esqueceu a senha?" */
+.recall-forget {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.recall-forget a {
+    color: white;
+    text-decoration: none;
+}
+
+.recall-forget a:hover {
+    text-decoration: underline;
+}
+
+/* Botão de entrar */
+.login-container button {
+    width: 350px;
+    padding: 12px;
+    background: white;
+    color: #8fc4fc;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-container button:hover {
+    background: #f0f0f0;
+}
+
+/* Estiliza a mensagem de erro */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* Estiliza o botão de cadastro */
+.register-btn {
+    background: white;
+    color: #28a745;
+    margin-top: 10px;
+}
+
+.register-btn:hover {
+    background: #dff0d8;
+}
+
+.register-txt{
+    color: white;
+    margin-top: 30px;
+}

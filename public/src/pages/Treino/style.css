@@ -1,0 +1,126 @@
+.tabela-treino {
+  width: 80%;  /* Define um tamanho menor para a tabela */
+  max-width: 900px;  /* Define um tamanho máximo */
+  border-collapse: collapse;
+  margin: 20px auto; /* Centraliza a tabela */
+}
+
+.tabela-treino th, .tabela-treino td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.tabela-treino th.coluna-azul {
+  background-color: #8fc4fc;
+  color: white;
+}
+
+.tabela-treino input {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  background: transparent;
+}
+
+.tabela-treino input[readonly] {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.botoes-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.editar-btn, .adicionar-btn, .apagar-btn {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.editar-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.adicionar-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.apagar-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Ajustando a responsividade */
+@media screen and (max-width: 1024px) {
+  .tabela-treino {
+    width: 95%;
+    font-size: 14px;
+  }
+}
+    width: 80%;  /* Define um tamanho menor para a tabela */
+    max-width: 900px;  /* Define um tamanho máximo */
+    border-collapse: collapse;
+    margin: 20px auto; /* Centraliza a tabela */
+  }
+  
+  .tabela-treino th, .tabela-treino td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .tabela-treino th.coluna-azul {
+    background-color: #8fc4fc;
+    color: white;
+  }
+  
+  .tabela-treino input {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    background: transparent;
+  }
+  
+  .tabela-treino input[readonly] {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+  }
+  
+  .botoes-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .editar-btn, .adicionar-btn, .apagar-btn {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .editar-btn {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .adicionar-btn {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .apagar-btn {
+    background-color: #dc3545;
+    color: white;
+  }
+  

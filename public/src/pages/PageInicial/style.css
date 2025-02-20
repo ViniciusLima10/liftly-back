@@ -1,0 +1,60 @@
+/* Fundo */
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #8fc4fc;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Conteúdo Centralizado */
+  .home-content {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    color: white;
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  /* Título */
+  .home-content h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Subtítulo */
+  .home-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Botões */
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .home-btn {
+    background: white;
+    color: black;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .home-btn:hover {
+    background:#8fc4fc;
+    color: white;
+    transform: scale(1.05);
+  }
+  
