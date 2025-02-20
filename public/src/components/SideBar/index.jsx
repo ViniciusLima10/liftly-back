@@ -11,7 +11,7 @@ const Sidebar = () => {
       <h1>Liftly</h1>
       <ul>
         <li>
-        <button className="sidebar-btn" onClick={() => navigate("/")}>
+        <button className="sidebar-btn" onClick={() => navigate("/MenuAluno")}>
              <FaChartBar/>   Lotação
             </button>
         </li>
@@ -21,7 +21,7 @@ const Sidebar = () => {
           </button>
         </li>
         <li>
-          <button className="sidebar-btn" onClick={() => navigate("/aulas")}>
+          <button className="sidebar-btn" onClick={() => navigate("/")}>
             <FaClipboardList /> Aulas
           </button>
         </li>
