@@ -1,14 +1,13 @@
-{
-  "development": {
-    "username": "admin",
-    "password": "securepassword",
-    "database": "gymapp",
-    "host": "postgres_container",
+{  "development": {
+    "username": "postgres",
+    "password": "123456",
+    "database": "postgres",
+    "host": "localhost",
     "dialect": "postgres"
   },
   "test": {
     "username": "admin",
-    "password": "securepassword",
+    "password": "123456",
     "database": "gymapp_test",
     "host": "postgres_container",
     "dialect": "postgres"
