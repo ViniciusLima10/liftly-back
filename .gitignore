@@ -129,4 +129,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 .vite/
-package-lock.json
+package-lock.jsonmongo-data/
