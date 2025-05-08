@@ -16,27 +16,27 @@ module.exports = (sequelize, DataTypes) => {
           key: 'id',
         },
       },
-      name: {
+      name: { //nome da aula
         type: DataTypes.STRING,
         allowNull: false,
       },
-      instructorId: {
+      instructorId: { //nome do professor
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: 'Users',  // Relacionando com a tabela Users
+          model: 'Users',  
           key: 'id',
         },
       },
-      startTime: {
+      startTime: { //horário de inicio da aula
         type: DataTypes.DATE,
         allowNull: false,
       },
-      duration: {
+      duration: { //duração da aula
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      maxCapacity: {
+      maxCapacity: {  //máxima capacidade de alunos
         type: DataTypes.INTEGER,
         allowNull: false,
       },
