@@ -1,5 +1,7 @@
 'use strict';
 
+//quem está vinculado a academia e qual papel (aluno, adm, personal)
+
 module.exports = (sequelize, DataTypes) => {
   const UserGym = sequelize.define(
     'UserGym',
@@ -26,9 +28,9 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       role: {
-        type: DataTypes.ENUM('professor', 'manager', 'user'), // Adicionando o campo ENUM
+        type: DataTypes.ENUM('professor', 'manager', 'user'), 
         allowNull: false,
-        defaultValue: 'user', // Valor padrão para evitar nulos
+        defaultValue: 'user', 
       },
     },
     {
