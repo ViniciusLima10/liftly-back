@@ -130,3 +130,7 @@ dist
 .pnp.*
 .vite/
 package-lock.jsonmongo-data/
+
+
+#mongo
+mongo-data/
