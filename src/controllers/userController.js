@@ -1,10 +1,36 @@
 const { User } = require('../models');
+const bcrypt = require('bcrypt');
+const { generateToken } = require('../utils/jwt');
 
-// Criar um novo usuário
 const createUser = async (req, res) => {
   try {
-    const user = await User.create(req.body);
-    res.status(201).json(user);
+    const { name, email, password, telefone, altura, peso } = req.body;
+
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(409).json({ error: 'E-mail já cadastrado.' });
+    }
+
+    const user = await User.create({
+      name,
+      email,
+      password,
+      telefone,
+      altura,
+      peso
+    });
+
+    const token = generateToken({ id: user.id, email: user.email });
+
+    res.status(201).json({
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email
+      },
+      token
+    });
+
   } catch (error) {
     res.status(500).json({ error: 'Erro ao criar usuário', details: error.message });
   }
@@ -55,10 +81,41 @@ const deleteUser = async (req, res) => {
       return res.status(404).json({ error: 'Usuário não encontrado' });
     }
     await user.destroy();
-    res.status(204).send(); // Sem conteúdo
+    res.status(204).send();
   } catch (error) {
     res.status(500).json({ error: 'Erro ao remover usuário', details: error.message });
   }
 };
 
-module.exports = { createUser, getUsers, getUserById, updateUser, deleteUser };
+const loginUser = async (req, res) => {
+  try {
+
+    const { email, password } = req.body; 
+    
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(401).json({ error: 'Usuário não encontrado.' });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ error: 'Senha incorreta.' });
+    }
+
+    const token = generateToken({ id: user.id, email: user.email });
+
+    res.json({
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email
+      },
+      token
+    });
+
+  } catch (error) {
+    res.status(500).json({ error: 'Erro no login', details: error.message });
+  }
+};
+
+module.exports = { createUser, getUsers, getUserById, updateUser, deleteUser, loginUser };

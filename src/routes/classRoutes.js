@@ -1,4 +1,5 @@
 const express = require('express');
+const authMiddleware = require('../middleware/authMiddleware');
 const {
   createClass,
   getClasses,
@@ -9,11 +10,12 @@ const {
 
 const router = express.Router();
 
-// Rotas
-router.post('/', createClass); // Cria uma nova aula
-router.get('/', getClasses); // Lista todas as aulas
-router.get('/:id', getClassById); // Busca uma aula por ID
-router.put('/:id', updateClass); // Atualiza uma aula por ID
-router.delete('/:id', deleteClass); // Remove uma aula por ID
+router.use(authMiddleware);
+
+router.post('/', createClass);
+router.get('/', getClasses);
+router.get('/:id', getClassById);
+router.put('/:id', updateClass);
+router.delete('/:id', deleteClass);
 
 module.exports = router;

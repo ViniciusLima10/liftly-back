@@ -1,4 +1,5 @@
 const express = require('express');
+const authMiddleware = require('../middleware/authMiddleware');
 const {
   createGym,
   getGyms,
@@ -9,11 +10,12 @@ const {
 
 const router = express.Router();
 
-// Rotas
-router.post('/', createGym); // Cria um novo gym
-router.get('/', getGyms); // Lista todos os gyms
-router.get('/:id', getGymById); // Busca um gym por ID
-router.put('/:id', updateGym); // Atualiza um gym por ID
-router.delete('/:id', deleteGym); // Remove um gym por ID
+router.use(authMiddleware);
+
+router.post('/', createGym);
+router.get('/', getGyms);
+router.get('/:id', getGymById);
+router.put('/:id', updateGym);
+router.delete('/:id', deleteGym);
 
 module.exports = router;
