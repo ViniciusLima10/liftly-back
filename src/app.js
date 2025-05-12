@@ -5,15 +5,9 @@ const gymRoutes = require('./routes/gymRoutes');
 const classRoutes = require('./routes/classRoutes');
 const scheduleRoutes = require('./routes/scheduleRoutes');
 const gymOccupancyControllerRoutes = require('./routes/gymOccupancyRoutes');
-const gymWorkoutPlanRoutes = require('./routes/gymWorkoutPlanRoutes');
-const dietPlanRoutes = require('./routes/dietPlanRoutes');
-const connectMongo = require("./config/mongo");
+
 const app = express();
 app.use(express.json());
-
-// Mongo
-connectMongo();
-
 
 // Rotas
 app.use('/users', userRoutes);
@@ -21,8 +15,6 @@ app.use('/gyms', gymRoutes);
 app.use('/classes', classRoutes);
 app.use('/schedules', scheduleRoutes);
 app.use('/gymOccupancy', gymOccupancyControllerRoutes);
-app.use('/gymWorkoutPlan', gymWorkoutPlanRoutes);
-app.use('/dietPlan', dietPlanRoutes);
 
 // Inicializar o servidor
 const PORT = process.env.PORT || 3001;

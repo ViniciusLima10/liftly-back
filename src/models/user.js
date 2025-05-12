@@ -5,25 +5,25 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     'User',
     {
-      name: {
+      name: { //nome do usuário
         type: DataTypes.STRING,
         allowNull: false,
       },
-      email: {
+      email: { //email do usuário
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
         validate: {
-          isEmail: true, // Valida se o email está no formato correto
+          isEmail: true,
         },
       },
-      password: {
+      password: { //senha do usuário
         type: DataTypes.STRING,
-        allowNull: false, // Remove a validação de comprimento
+        allowNull: false,
       },
-      telefone: {
+      telefone: { //telefone do usuário
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false, 
       },
       altura: {
         type: DataTypes.STRING,
@@ -33,16 +33,19 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      role: {
+        type: DataTypes.ENUM('student', 'teacher', 'owner', 'nutritionist'),
+        allowNull: false,
+        defaultValue: 'student',
+      },
     },
     {
       hooks: {
-        // Hook para hash antes de criar o usuário
         beforeCreate: async (user) => {
           if (user.password) {
             user.password = await bcrypt.hash(user.password, 10);
           }
         },
-        // Hook para hash antes de atualizar o campo password
         beforeUpdate: async (user) => {
           if (user.changed('password') && user.password) {
             user.password = await bcrypt.hash(user.password, 10);
@@ -52,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  User.associate = function(models) {
+  User.associate = function (models) {
     User.belongsToMany(models.Gym, {
       through: 'UserGym',
       foreignKey: 'userId',
@@ -60,7 +63,6 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  // Método para validar a senha
   User.prototype.validatePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
   };

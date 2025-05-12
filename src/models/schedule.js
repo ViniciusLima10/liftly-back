@@ -1,5 +1,5 @@
 'use strict';
-
+//relaciona um usuario a uma aula
 module.exports = (sequelize, DataTypes) => {
   const Schedule = sequelize.define(
     'Schedule',
@@ -9,11 +9,11 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
       },
-      userId: {
+      userId: { //id do aluno
         type: DataTypes.UUID,
         allowNull: false,
       },
-      classId: {
+      classId: { //id da aula
         type: DataTypes.UUID,
         allowNull: false,
       },

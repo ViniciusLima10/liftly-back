@@ -9,19 +9,19 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
       },
-      name: {
+      name: { //nome da academia
         type: DataTypes.STRING,
         allowNull: false,
       },
-      address: {
+      address: { //endereço da academia
         type: DataTypes.STRING,
         allowNull: false,
       },
-      capacity: {
+      capacity: { // capacidade total da academia
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      ownerId: {
+      ownerId: { //dono da academia
         type: DataTypes.UUID,
         allowNull: true, // Permite que uma academia exista sem dono inicialmente
         references: {
