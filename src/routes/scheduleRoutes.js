@@ -1,4 +1,5 @@
 const express = require('express');
+const authMiddleware = require('../middleware/authMiddleware');
 const {
   createSchedule,
   getSchedules,
@@ -9,11 +10,12 @@ const {
 
 const router = express.Router();
 
-// Rotas
-router.post('/', createSchedule); // Cria um novo usuário
-router.get('/', getSchedules); // Lista todos os usuários
-router.get('/:id', getScheduleById); // Busca um usuário por ID
-router.put('/:id', updateSchedule); // Atualiza um usuário por ID
-router.delete('/:id', deleteSchedule); // Remove um usuário por ID
+router.use(authMiddleware);
+
+router.post('/', createSchedule);
+router.get('/', getSchedules);
+router.get('/:id', getScheduleById);
+router.put('/:id', updateSchedule);
+router.delete('/:id', deleteSchedule);
 
 module.exports = router;

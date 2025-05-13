@@ -1,4 +1,5 @@
 const express = require('express');
+const authMiddleware = require('../middleware/authMiddleware');
 const {
   registerEntry,
   registerExit,
@@ -6,6 +7,8 @@ const {
 } = require('../controllers/gymOccupancyController');
 
 const router = express.Router();
+
+router.use(authMiddleware);
 
 router.post('/entry', registerEntry);
 router.post('/exit', registerExit);

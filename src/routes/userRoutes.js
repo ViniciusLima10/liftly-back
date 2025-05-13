@@ -1,19 +1,25 @@
 const express = require('express');
+const authMiddleware = require('../middleware/authMiddleware');
 const {
   createUser,
   getUsers,
   getUserById,
   updateUser,
   deleteUser,
+  loginUser
 } = require('../controllers/userController');
 
 const router = express.Router();
 
-// Rotas
-router.post('/', createUser); // Cria um novo usuário
-router.get('/', getUsers); // Lista todos os usuários
-router.get('/:id', getUserById); // Busca um usuário por ID
-router.put('/:id', updateUser); // Atualiza um usuário por ID
-router.delete('/:id', deleteUser); // Remove um usuário por ID
+// Rota pública colocada antes do middleware para criar usuário
+router.post('/login', loginUser);
+router.post('/', createUser);
+
+router.use(authMiddleware);
+
+router.get('/', getUsers);
+router.get('/:id', getUserById);
+router.put('/:id', updateUser);
+router.delete('/:id', deleteUser);
 
 module.exports = router;
