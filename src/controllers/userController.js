@@ -4,7 +4,7 @@ const { generateToken } = require('../utils/jwt');
 
 const createUser = async (req, res) => {
   try {
-    const { name, email, password, telefone, altura, peso } = req.body;
+    const { name, email, password, telefone, altura, peso, role } = req.body;
 
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
@@ -17,7 +17,8 @@ const createUser = async (req, res) => {
       password,
       telefone,
       altura,
-      peso
+      peso,
+      role
     });
 
     const token = generateToken({ id: user.id, email: user.email });
@@ -108,7 +109,8 @@ const loginUser = async (req, res) => {
       user: {
         id: user.id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        tipo: user.role
       },
       token
     });

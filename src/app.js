@@ -5,8 +5,12 @@ const gymRoutes = require('./routes/gymRoutes');
 const classRoutes = require('./routes/classRoutes');
 const scheduleRoutes = require('./routes/scheduleRoutes');
 const gymOccupancyControllerRoutes = require('./routes/gymOccupancyRoutes');
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors({origin: "http://localhost:3000"}))
+
 app.use(express.json());
 
 // Rotas
