@@ -33,11 +33,26 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      role: {
-        type: DataTypes.ENUM('student', 'teacher', 'owner', 'nutritionist'),
-        allowNull: false,
-        defaultValue: 'student',
+      isStudent: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
       },
+      isPersonal: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+      },
+      isNutritionist: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+      },
+      resetToken: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      resetTokenExpires: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      }
     },
     {
       hooks: {

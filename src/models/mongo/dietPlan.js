@@ -27,7 +27,7 @@ const refeicoesSchema = new mongoose.Schema({
 
 const dietPlanSchema = new mongoose.Schema({
     userId: {
-        type: Number,
+        type: String,
         required: true
     },
     refeicoes: [refeicoesSchema]

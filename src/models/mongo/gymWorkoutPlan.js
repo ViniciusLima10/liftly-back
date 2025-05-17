@@ -23,7 +23,7 @@ const FichasSchema = new mongoose.Schema({
 
 const gymWorkoutPlanSchema = new mongoose.Schema({
     userId: {
-        type: Number,
+        type: String,
         required: true
     },
     fichas: [FichasSchema]
