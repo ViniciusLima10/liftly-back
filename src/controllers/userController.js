@@ -7,6 +7,8 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const { Op } = require('sequelize');
 require('dotenv').config();
+const path = require('path');
+
 
 
 
@@ -243,4 +245,23 @@ const resetPassword = async(req, res) => {
   return res.status(200).json({ message: "senha atualizada com sucesso!"})
 }
 
-module.exports = { createUser, getUsers, getUserById, updateUser, deleteUser, loginUser, findUserWorkoutPlans,  findUserDietPlans, resetPassword, forgotPassword};
+const uploadProfilePic = async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+
+    if(!user) return res.status(404).json({error: "usuario nao encontrado"});
+
+    if(!req.file) return res.status(404).json({error: "nenhuma imagem foi enviada"});
+
+    const imagePath = path.join('uploads/profilePics', req.file.filename);
+
+    await user.update({ profilePic: imagePath});
+
+    res.status(200).json({message: "Imagem de perfil atualizada", profilePic: imagePath});  
+  } catch(err) {
+    res.status(500).json({error: "Erro ao atualizar foto de perfil", details: err.message})
+
+  }
+}
+
+module.exports = { createUser, getUsers, getUserById, updateUser, deleteUser, loginUser, findUserWorkoutPlans,  findUserDietPlans, resetPassword, forgotPassword, uploadProfilePic};

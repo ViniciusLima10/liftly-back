@@ -10,8 +10,11 @@ const {
   findUserDietPlans,
   findUserWorkoutPlans,
   resetPassword,
-  forgotPassword
+  forgotPassword,
+  uploadProfilePic
 } = require('../controllers/userController');
+
+const uploadProfilePicMiddleware = require('../middleware/uploadProfilePicMiddleware');
 
 const router = express.Router();
 
@@ -30,4 +33,5 @@ router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);
 router.get('/dietplans/:id', findUserDietPlans);
 router.get('/workoutplans/:id', findUserWorkoutPlans);
+router.post('/updateProfilePic/:id', uploadProfilePicMiddleware.single('profilePic'), uploadProfilePic)
 module.exports = router;

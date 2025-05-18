@@ -16,6 +16,7 @@ app.use(cors({origin: "http://localhost:3000"}))
 connectMongo();
 
 app.use(express.json());
+app.use('/uploads', express.static('uploads'));
 
 // Rotas
 app.use('/users', userRoutes);

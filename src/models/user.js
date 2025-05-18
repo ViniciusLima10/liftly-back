@@ -52,6 +52,10 @@ module.exports = (sequelize, DataTypes) => {
       resetTokenExpires: {
         type: DataTypes.DATE,
         allowNull: true,
+      },
+      profilePic: {
+        type: DataTypes.STRING,
+        allowNull: true,
       }
     },
     {
