@@ -1,0 +1,25 @@
+_id: req_dbdb4fc652bb4812b3a94449eb8f380c
+type: Request
+parentId: fld_c8cdc22c560f48b89da3f23ee78811c9
+modified: 1747746444022
+created: 1747744544006
+url: http://localhost:3001/gymWorkoutPlan/1
+name: New Request
+description: ""
+method: GET
+body:
+  mimeType: ""
+  text: ""
+parameters: []
+headers:
+  - name: User-Agent
+    value: insomnia/11.0.2
+authentication: {}
+metaSortKey: -1747746416648
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

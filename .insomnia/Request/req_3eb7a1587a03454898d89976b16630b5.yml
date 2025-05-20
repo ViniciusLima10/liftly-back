@@ -1,0 +1,32 @@
+_id: req_3eb7a1587a03454898d89976b16630b5
+type: Request
+parentId: fld_3229f9445c7840e6aef65785cb0db24d
+modified: 1747746434095
+created: 1747744544065
+url: http://localhost:3001/users/updateProfilePic/a4ceeb6c-5781-43ba-bba4-247e74adef79
+name: updateprofilepicUser
+description: ""
+method: POST
+body:
+  mimeType: multipart/form-data
+  params:
+    - name: profilePic
+      fileName: /home/vinicius/Downloads/file.jpeg
+parameters: []
+headers:
+  - name: Content-Type
+    value: multipart/form-data
+  - name: User-Agent
+    value: insomnia/10.3.1
+  - name: Authorization
+    value: Bearer
+      eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE0Y2VlYjZjLTU3ODEtNDNiYS1iYmE0LTI0N2U3NGFkZWY3OSIsImVtYWlsIjoicmFmYWVsYXZpZGFnb0BnbWFpbC5jb20iLCJpYXQiOjE3NDc2MDA0NTMsImV4cCI6MTc0NzY4Njg1M30.6FHA5VJjUC6lOSIE9W_7pd9-bB9YrxSkcw06b-qvMsI
+authentication: {}
+metaSortKey: -1746704098438
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

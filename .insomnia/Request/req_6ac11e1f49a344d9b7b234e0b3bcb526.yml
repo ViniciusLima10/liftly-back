@@ -1,0 +1,40 @@
+_id: req_6ac11e1f49a344d9b7b234e0b3bcb526
+type: Request
+parentId: fld_3229f9445c7840e6aef65785cb0db24d
+modified: 1747070663111
+created: 1746644138049
+url: http://localhost:3001/users/96a7cc0a-5b8d-4337-82eb-603e03d0b97c
+name: getUser
+description: |
+  ### 🔐 Autenticação com JWT (Bearer Token)
+
+  Para acessar esta rota, é necessário um token JWT.
+
+  **Como usar no Insomnia:**
+  - Vá na aba **Auth**
+  - Selecione **Bearer Token**
+  - Cole o token retornado ao criar ou logar um usuário
+  - O cabeçalho será enviado como:
+    ```
+    Authorization: Bearer <seu_token>
+    ```
+
+  Sem um token válido, a API retorna `401 Unauthorized`.
+method: GET
+body: {}
+parameters: []
+headers:
+  - name: User-Agent
+    value: insomnia/2023.5.8
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2YTdjYzBhLTViOGQtNDMzNy04MmViLTYwM2UwM2QwYjk3YyIsImVtYWlsIjoiYXRlcXVlZmltQGdtYWlsLmNvbSIsImlhdCI6MTc0NzA3MDU5OCwiZXhwIjoxNzQ3MTU2OTk4fQ.ABlPh3vOhjr_4qMw3KNkS59Y2_J1-O_7dymoNY5_2JE
+  prefix: Bearer
+metaSortKey: -1746642137763.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,81 @@
+_id: req_88b41cca7f964b4bb54d52e7517e7ad8
+type: Request
+parentId: fld_d7b8a6199d994852958d16b991038d3a
+modified: 1747746331001
+created: 1747744544002
+url: http://localhost:3001/dietPlan
+name: New Request
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |
+    {
+      "userId": "2150d290-4453-407f-ad54-2e6cc6e76c66",
+      "refeicoes": [
+        {
+          "nomeRefeicao": "Café da manhã",
+          "horario": "07:00",
+          "dataCriacao": "2025-05-01T00:00:00.000Z",
+          "alimentos": [
+            {
+              "nome": "Pão integral",
+              "quantidade": 2,
+              "modoDePreparo": "Torrado",
+              "carboidrato": 25,
+              "proteina": 5,
+              "gordura": 2
+            },
+            {
+              "nome": "Café preto",
+              "quantidade": 1,
+              "modoDePreparo": "Sem açúcar",
+              "carboidrato": 0,
+              "proteina": 0,
+              "gordura": 0
+            }
+          ]
+        },
+        {
+          "nomeRefeicao": "Almoço",
+          "horario": "12:30",
+          "dataCriacao": "2025-05-01T00:00:00.000Z",
+          "alimentos": [
+            {
+              "nome": "Arroz integral",
+              "quantidade": 150,
+              "modoDePreparo": "Cozido",
+              "carboidrato": 35,
+              "proteina": 4,
+              "gordura": 1
+            },
+            {
+              "nome": "Frango grelhado",
+              "quantidade": 200,
+              "modoDePreparo": "Grelhado",
+              "carboidrato": 0,
+              "proteina": 40,
+              "gordura": 10
+            }
+          ]
+        }
+      ]
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: insomnia/11.0.2
+  - name: Authorization
+    value: Bearer
+      eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNTBkMjkwLTQ0NTMtNDA3Zi1hZDU0LTJlNmNjNmU3NmM2NiIsImVtYWlsIjoib3NAZW1haWwuY29tIiwiaWF0IjoxNzQ3MzA4MDYzLCJleHAiOjE3NDczOTQ0NjN9.t_KMDZ5LTqnfVCV8TI7dVr9acSFkZ30LKjvv8uZqQa4
+authentication: {}
+metaSortKey: -1747746307179
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,35 @@
+_id: req_0981db78649e4741ac957fb92e93454d
+type: Request
+parentId: fld_06f606d6a6f1474fac1ebd93a60b6c07
+modified: 1747746128755
+created: 1747744544022
+url: http://localhost:3001/classes/
+name: createClass
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+        "gymId": "2817f8eb-5ebc-499a-8ac7-c73fef8432f7",
+        "name": "Yoga Relax",
+        "instructor": "Mariana Costa",
+        "startTime": "2025-03-10T10:00:00Z",
+        "duration": 45,
+        "maxCapacity": 15
+      }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: insomnia/10.3.1
+authentication: {}
+metaSortKey: -1747746109627
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,32 @@
+_id: req_6dbd68e532ae4b67a2fbb618454b1401
+type: Request
+parentId: fld_6f5a570f27d94c33b5da8501f0a7700e
+modified: 1747746197541
+created: 1747744544044
+url: http://localhost:3001/schedules/5422dbb5-62b0-41de-97b7-be684420736a
+name: updateSchedule
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"userId": "cdd305cb-4db2-4818-a08b-5d9a256dc925",
+    	"classId": "ad49410e-7a1a-43ea-996e-d0de0462a94c",
+    	"status": "Cancelado"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: insomnia/10.3.1
+authentication: {}
+metaSortKey: -1747746091337
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

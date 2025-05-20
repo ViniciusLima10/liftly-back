@@ -1,0 +1,30 @@
+_id: req_653d1f38dbff4083bd7a69e96e727c8d
+type: Request
+parentId: fld_3229f9445c7840e6aef65785cb0db24d
+modified: 1747746282341
+created: 1747744544071
+url: http://localhost:3001/users/forgotPassword
+name: forgotPassword
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |
+    {
+    	"email": "rafaelavidago@gmail.com"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: insomnia/10.3.1
+authentication: {}
+metaSortKey: -1746704098338
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

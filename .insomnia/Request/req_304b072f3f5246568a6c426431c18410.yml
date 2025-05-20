@@ -1,0 +1,30 @@
+_id: req_304b072f3f5246568a6c426431c18410
+type: Request
+parentId: fld_3229f9445c7840e6aef65785cb0db24d
+modified: 1747746469275
+created: 1747744544084
+url: http://localhost:3001/users/workoutplans/2150d290-4453-407f-ad54-2e6cc6e76c66
+name: getUsersworkoutplan
+description: ""
+method: GET
+body:
+  mimeType: multipart/form-data
+  text: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: multipart/form-data
+  - name: User-Agent
+    value: insomnia/10.3.1
+  - name: Authorization
+    value: Bearer
+      eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNTBkMjkwLTQ0NTMtNDA3Zi1hZDU0LTJlNmNjNmU3NmM2NiIsImVtYWlsIjoib3NAZW1haWwuY29tIiwiaWF0IjoxNzQ3MzA4MDYzLCJleHAiOjE3NDczOTQ0NjN9.t_KMDZ5LTqnfVCV8TI7dVr9acSFkZ30LKjvv8uZqQa4
+authentication: {}
+metaSortKey: -1746704098538
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,98 @@
+_id: req_c9fa91e1bb8645f49efbc6d53e9ab49a
+type: Request
+parentId: fld_c8cdc22c560f48b89da3f23ee78811c9
+modified: 1747746449818
+created: 1747744543995
+url: http://localhost:3001/gymWorkoutPlan
+name: New Request
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |
+    {
+      "userId": 1,
+      "fichas": [
+        {
+          "nomeFicha": "Treino A - Peito e Tríceps",
+          "dataCriacao": "2024-05-01T00:00:00.000Z",
+          "exercicios": [
+            {
+              "nome": "Supino reto",
+              "series": 4,
+              "repeticoes": "10-8-8-6",
+              "carga": "70kg",
+              "descanso": "60s",
+              "observacoes": "Manter cotovelos em 45 graus"
+            },
+            {
+              "nome": "Crucifixo inclinado",
+              "series": 3,
+              "repeticoes": "12",
+              "carga": "16kg",
+              "descanso": "45s",
+              "observacoes": ""
+            }
+          ]
+        },
+        {
+          "nomeFicha": "Treino B - Costas e Bíceps",
+          "dataCriacao": "2024-05-01T00:00:00.000Z",
+          "exercicios": [
+            {
+              "nome": "Puxada frontal",
+              "series": 4,
+              "repeticoes": "12",
+              "carga": "50kg",
+              "descanso": "60s",
+              "observacoes": "Executar puxando até o queixo"
+            },
+            {
+              "nome": "Rosca direta",
+              "series": 4,
+              "repeticoes": "10-10-8-8",
+              "carga": "20kg",
+              "descanso": "60s",
+              "observacoes": "Manter postura ereta"
+            }
+          ]
+        },
+        {
+          "nomeFicha": "Treino C - Pernas e Ombros",
+          "dataCriacao": "2024-05-01T00:00:00.000Z",
+          "exercicios": [
+            {
+              "nome": "Agachamento livre",
+              "series": 5,
+              "repeticoes": "12-10-8-8-6",
+              "carga": "80kg",
+              "descanso": "90s",
+              "observacoes": "Foco na execução"
+            },
+            {
+              "nome": "Desenvolvimento militar",
+              "series": 4,
+              "repeticoes": "12",
+              "carga": "30kg",
+              "descanso": "60s",
+              "observacoes": "Evitar arqueamento das costas"
+            }
+          ]
+        }
+      ]
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: insomnia/11.0.2
+authentication: {}
+metaSortKey: -1747746416748
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

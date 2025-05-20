@@ -1,0 +1,25 @@
+_id: req_e962c11bbf0f42ca92a25f373ee4b39f
+type: Request
+parentId: fld_6f5a570f27d94c33b5da8501f0a7700e
+modified: 1747746220038
+created: 1747744544051
+url: http://localhost:3001/schedules/5422dbb5-62b0-41de-97b7-be684420736a
+name: deleteSchedule
+description: ""
+method: DELETE
+body:
+  mimeType: ""
+  text: ""
+parameters: []
+headers:
+  - name: User-Agent
+    value: insomnia/10.3.1
+authentication: {}
+metaSortKey: -1747746091437
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

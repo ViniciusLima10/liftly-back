@@ -1,0 +1,37 @@
+_id: req_65f4a8cd937544dd833994c43e8bae94
+type: Request
+parentId: fld_3229f9445c7840e6aef65785cb0db24d
+modified: 1746657938207
+created: 1746657826857
+url: http://localhost:3001/users/dabd137b-15c4-467b-83ba-304025793584
+name: updateUser
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |
+    {
+      "name": "Samuel Atualizado",
+      "email": "novoemail@email.com",
+      "telefone": "11988887777",
+      "altura": 1.80,
+      "peso": 75
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: insomnia/2023.5.8
+authentication:
+  type: bearer
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRhYmQxMzdiLTE1YzQtNDY3Yi04M2JhLTMwNDAyNTc5MzU4NCIsImVtYWlsIjoic2FtdWVsLnRlc3RlQGVtYWlsLmNvbSIsImlhdCI6MTc0NjY0MzUwNiwiZXhwIjoxNzQ2NzI5OTA2fQ.K06ZV9-Ihxtgorx3tGtwwBWDV35Y72WOlqKnLKjm1fE
+  prefix: Bearer
+metaSortKey: -1746657826857
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

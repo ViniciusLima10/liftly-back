@@ -1,0 +1,32 @@
+_id: req_3ef472195c3d42979ab6ab52448685f5
+type: Request
+parentId: fld_3d41afeb6eeb40e4adfb74a3b2e879e4
+modified: 1747746207246
+created: 1747744544049
+url: http://localhost:3001/gyms/7dcf5b8b-1ea0-4279-9a92-543fc28f1b5e
+name: updateGym
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |
+    {
+      "name": "Academia TopFit",
+      "address": "Rua das Palmeiras, 456",
+      "capacity": 200
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: insomnia/10.3.1
+authentication: {}
+metaSortKey: -1747744910542
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

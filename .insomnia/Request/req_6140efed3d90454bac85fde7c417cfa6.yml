@@ -1,0 +1,25 @@
+_id: req_6140efed3d90454bac85fde7c417cfa6
+type: Request
+parentId: fld_3d41afeb6eeb40e4adfb74a3b2e879e4
+modified: 1747746214048
+created: 1747744544058
+url: http://localhost:3001/gyms/7dcf5b8b-1ea0-4279-9a92-543fc28f1b5e
+name: deleteGym
+description: ""
+method: DELETE
+body:
+  mimeType: ""
+  text: ""
+parameters: []
+headers:
+  - name: User-Agent
+    value: insomnia/10.3.1
+authentication: {}
+metaSortKey: -1747744910642
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

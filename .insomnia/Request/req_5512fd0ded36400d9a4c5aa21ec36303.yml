@@ -1,0 +1,25 @@
+_id: req_5512fd0ded36400d9a4c5aa21ec36303
+type: Request
+parentId: fld_3d41afeb6eeb40e4adfb74a3b2e879e4
+modified: 1747746119163
+created: 1747744544032
+url: http://localhost:3001/gyms/
+name: getGyms
+description: ""
+method: GET
+body:
+  mimeType: ""
+  text: ""
+parameters: []
+headers:
+  - name: User-Agent
+    value: insomnia/10.3.1
+authentication: {}
+metaSortKey: -1747744910342
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,25 @@
+_id: req_823a41145a5d4cda83f7732098ca9e58
+type: Request
+parentId: fld_06f606d6a6f1474fac1ebd93a60b6c07
+modified: 1747746189736
+created: 1747744544039
+url: http://localhost:3001/classes/ad49410e-7a1a-43ea-996e-d0de0462a94c
+name: getClass
+description: ""
+method: GET
+body:
+  mimeType: ""
+  text: ""
+parameters: []
+headers:
+  - name: User-Agent
+    value: insomnia/10.3.1
+authentication: {}
+metaSortKey: -1747746109727
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

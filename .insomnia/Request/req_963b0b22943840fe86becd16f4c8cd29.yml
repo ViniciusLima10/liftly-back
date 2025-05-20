@@ -1,0 +1,25 @@
+_id: req_963b0b22943840fe86becd16f4c8cd29
+type: Request
+parentId: fld_1866c22ef3b04bd58d464ba85377421d
+modified: 1747746569598
+created: 1747744544011
+url: http://localhost:3001/gymOccupancy/418b6a2e-42d9-4afe-a810-4c3e460ceaf7
+name: getCurrentOccupancy
+description: ""
+method: GET
+body:
+  mimeType: ""
+  text: ""
+parameters: []
+headers:
+  - name: User-Agent
+    value: insomnia/10.3.1
+authentication: {}
+metaSortKey: -1747746563364
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
