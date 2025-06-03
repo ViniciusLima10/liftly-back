@@ -14,7 +14,7 @@ const path = require('path');
 
 const createUser = async (req, res) => {
   try {
-    const { name, email, password, telefone, altura, peso, isNutritionist, isPersonal, isStudent } = req.body;
+    const { name, email, password, telefone, altura, peso, isNutritionist, isPersonal, isStudent , profilePic} = req.body;
 
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
@@ -28,6 +28,7 @@ const createUser = async (req, res) => {
       telefone,
       altura,
       peso,
+      profilePic,
       isStudent,
       isNutritionist,
       isPersonal
