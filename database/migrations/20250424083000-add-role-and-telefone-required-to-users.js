@@ -17,9 +17,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    // Remove a coluna "role"
-    await queryInterface.removeColumn('Users', 'role');
-
     // Volta a coluna "telefone" para permitir nulo
     await queryInterface.changeColumn('Users', 'telefone', {
       type: Sequelize.STRING,
