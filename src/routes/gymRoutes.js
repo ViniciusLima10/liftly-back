@@ -6,13 +6,16 @@ const {
   getGymById,
   updateGym,
   deleteGym,
+  loginGym,
 } = require('../controllers/gymController');
 
 const router = express.Router();
 
+router.post('/', createGym);
+router.post('/login', loginGym);
+
 router.use(authMiddleware);
 
-router.post('/', createGym);
 router.get('/', getGyms);
 router.get('/:id', getGymById);
 router.put('/:id', updateGym);
