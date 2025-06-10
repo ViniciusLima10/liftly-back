@@ -4,8 +4,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.addColumn('Users', 'role', {
       type: Sequelize.ENUM('aluno', 'personal', 'nutricionista', 'academia'),
-      allowNull: false,
-      defaultValue: 'aluno', // ou null se preferir obrigar no cadastro
+      allowNull: true,
     });
 
     await queryInterface.addColumn('Users', 'idade', {

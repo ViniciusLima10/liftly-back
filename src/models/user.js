@@ -56,6 +56,27 @@ module.exports = (sequelize, DataTypes) => {
       profilePic: {
         type: DataTypes.STRING,
         allowNull: true,
+      },
+      role: {
+        type: DataTypes.ENUM('aluno', 'personal', 'nutricionista', 'academia'),
+        allowNull: true
+        // defaultValue: 'aluno' // Opcional: define um valor padrão
+      },
+      idade: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      descricao: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      endereco: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      ocupacaoMaxima: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
       }
     },
     {
