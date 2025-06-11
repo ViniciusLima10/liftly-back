@@ -1,10 +1,10 @@
-const { UserGyms } = require('../models');
+const { UserGym } = require('../models');
 
-async function linkUser(req, res) {
+async function linkUserGym(req, res) {
   const { userId, gymId, role } = req.body;
 
   try {
-    const novoVinculo = await UserGyms.create({ userId, gymId, role });
+    const novoVinculo = await UserGym.create({ userId, gymId, role });
     return res.status(201).json({
       message: 'Usuário vinculado com sucesso',
       data: novoVinculo
@@ -18,4 +18,4 @@ async function linkUser(req, res) {
   }
 }
 
-module.exports = { linkUser };
+module.exports = { linkUserGym };
