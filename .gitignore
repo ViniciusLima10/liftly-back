@@ -38,3 +38,4 @@ Thumbs.db
 
 mongo-data/
 src/config/config.json
+/src/config/config.json
