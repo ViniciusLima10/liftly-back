@@ -1,8 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const connectMongo = require('./config/mongo'); 
-
-
+const connectMongo = require('./config/mongo');
 
 const userRoutes = require('./routes/userRoutes');
 const gymRoutes = require('./routes/gymRoutes');
@@ -12,14 +10,16 @@ const dietPlanRoutes = require('./routes/dietPlanRoutes');
 const gymWorkoutPlanRoutes = require('./routes/gymWorkoutPlanRoutes');
 const marketplaceRoutes = require('./routes/marketplaceRoutes');
 const personalServiceRoutes = require('./routes/personalServiceRoutes');
-
-
+const userGymRoutes = require('./routes/userGymRoutes');
+const planRoutes = require('./routes/planRoutes');
+const subscriptionRoutes = require('./routes/subscriptionRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
 
 const cors = require('cors');
 
 const app = express();
 
-app.use(cors({origin: "http://localhost:3000"}))
+app.use(cors({ origin: "http://localhost:3000" }))
 
 connectMongo();
 
@@ -36,6 +36,10 @@ app.use('/dietPlan', dietPlanRoutes);
 app.use("/gymWorkoutPlan", gymWorkoutPlanRoutes)
 app.use("/marketplace", marketplaceRoutes)
 app.use("/personal", personalServiceRoutes)
+app.use('/usergym', userGymRoutes);
+app.use('/plan', planRoutes);
+app.use('/subscription', subscriptionRoutes);
+app.use('/payment', paymentRoutes);
 
 
 // Inicializar o servidor

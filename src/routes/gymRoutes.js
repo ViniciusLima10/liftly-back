@@ -6,13 +6,20 @@ const {
   getGymById,
   updateGym,
   deleteGym,
+  loginGym,
+  forgotPasswordGym,
+  resetPasswordGym
 } = require('../controllers/gymController');
 
 const router = express.Router();
 
+router.post('/', createGym);
+router.post('/login', loginGym);
+router.post('/forgot-password', forgotPasswordGym);
+router.post('/reset-password/:token', resetPasswordGym);
+
 router.use(authMiddleware);
 
-router.post('/', createGym);
 router.get('/', getGyms);
 router.get('/:id', getGymById);
 router.put('/:id', updateGym);

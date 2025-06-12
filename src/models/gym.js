@@ -1,4 +1,5 @@
 'use strict';
+const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
   const Gym = sequelize.define(
@@ -9,45 +10,62 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
       },
-      name: { //nome da academia
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      address: { //endereço da academia
+      address: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      capacity: { // capacidade total da academia
+      capacity: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      ownerId: { //dono da academia
-        type: DataTypes.UUID,
-        allowNull: true, // Permite que uma academia exista sem dono inicialmente
-        references: {
-          model: 'Users',
-          key: 'id',
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          isEmail: { msg: 'Deve ser um e-mail válido' },
         },
-        onDelete: 'SET NULL', // Se o dono for removido, a academia continua existindo
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        field: 'password',
       },
     },
     {
       tableName: 'Gyms',
       timestamps: true,
+      defaultScope: {
+        attributes: { exclude: ['password'] },
+      },
     }
   );
+
+  Gym.beforeCreate(async (gym) => {
+    if (gym.password) {
+      gym.password = await bcrypt.hash(gym.password, 10);
+    }
+  });
+
+  Gym.beforeUpdate(async (gym) => {
+    if (gym.changed('password')) {
+      gym.password = await bcrypt.hash(gym.password, 10);
+    }
+  });
+
+  Gym.prototype.validatePassword = async function (senhaPlain) {
+    return bcrypt.compare(senhaPlain, this.password);
+  };
 
   Gym.associate = function (models) {
     Gym.belongsToMany(models.User, {
       through: 'UserGyms',
       foreignKey: 'gymId',
       as: 'users',
-    });
-
-    Gym.belongsTo(models.User, {
-      foreignKey: 'ownerId',
-      as: 'owner',
-      onDelete: 'SET NULL',
     });
   };
 
