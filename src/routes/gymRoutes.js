@@ -8,7 +8,8 @@ const {
   deleteGym,
   loginGym,
   forgotPasswordGym,
-  resetPasswordGym
+  resetPasswordGym,
+  registerUserByGym 
 } = require('../controllers/gymController');
 
 const router = express.Router();
@@ -24,5 +25,6 @@ router.get('/', getGyms);
 router.get('/:id', getGymById);
 router.put('/:id', updateGym);
 router.delete('/:id', deleteGym);
+ router.post('/register-user', registerUserByGym);
 
 module.exports = router;
