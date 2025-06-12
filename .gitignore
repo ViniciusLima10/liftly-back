@@ -10,8 +10,10 @@ build/
 .env.local
 .env.production
 .env.development
-src/config/config.json
+/src/config/config.json
 
+# Ignorar arquivo de configuração do Sequelize
+src/config/config.json
 
 # Ignorar logs
 npm-debug.log
