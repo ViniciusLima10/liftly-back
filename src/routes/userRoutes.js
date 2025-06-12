@@ -1,11 +1,7 @@
 const express = require('express');
 const authMiddleware = require('../middleware/authMiddleware');
 const {
-<<<<<<< HEAD
   createUser, // Esta é a função que será o handler direto para /cadastro/:role
-=======
-  createUser, // Função para criar usuário
->>>>>>> 9c679bf (fix)
   getUsers,
   getUserById,
   updateUser,
