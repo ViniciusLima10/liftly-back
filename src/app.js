@@ -19,7 +19,7 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:3000" }))
+app.use(cors({ origin: "http://localhost:3000" }));
 
 connectMongo();
 
@@ -27,19 +27,20 @@ app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
 // Rotas
-app.use('/users', userRoutes);
+app.use('/users', userRoutes);  // Definindo as rotas aqui, passando para o arquivo `userRoutes.js`
 app.use('/gyms', gymRoutes);
 app.use('/classes', classRoutes);
 app.use('/schedules', scheduleRoutes);
 app.use('/gymOccupancy', dietPlanRoutes);
 app.use('/dietPlan', dietPlanRoutes);
-app.use("/gymWorkoutPlan", gymWorkoutPlanRoutes)
-app.use("/marketplace", marketplaceRoutes)
-app.use("/personal", personalServiceRoutes)
+app.use("/gymWorkoutPlan", gymWorkoutPlanRoutes);
+app.use("/marketplace", marketplaceRoutes);
+app.use("/personal", personalServiceRoutes);
 app.use('/usergym', userGymRoutes);
 app.use('/plan', planRoutes);
 app.use('/subscription', subscriptionRoutes);
 app.use('/payment', paymentRoutes);
+
 
 
 // Inicializar o servidor

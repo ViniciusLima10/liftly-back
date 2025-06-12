@@ -9,6 +9,7 @@ const { Op } = require('sequelize'); // Usado para operações do Sequelize
 require('dotenv').config();
 const path = require('path');
 
+<<<<<<< HEAD
 
 // Função para criar usuário - AGORA COM .trim() E LÓGICA DE ROLES AJUSTADA
 const createUser = async (req, res) => {
@@ -19,6 +20,14 @@ const createUser = async (req, res) => {
         // Extrai os dados básicos do corpo da requisição e aplica .trim()
         const { name, email, password, telefone, altura, peso, descricao, endereco, ocupacaoMaxima } = req.body;
 
+=======
+// Função para criar usuário - AGORA COM .trim() E LÓGICA DE ROLES AJUSTADA
+const createUser = async (req, res) => {
+  try {
+        const { role } = req.params;
+        const { name, email, password, telefone, altura, peso, descricao, endereco, ocupacaoMaxima } = req.body;
+
+>>>>>>> 9c679bf (fix)
         // Aplica .trim() em todos os campos de string relevantes imediatamente
         const trimmedName = name ? name.trim() : null; // Lida com nome opcional
         const trimmedEmail = email ? email.trim() : null;
@@ -51,7 +60,10 @@ const createUser = async (req, res) => {
             isNutritionist: false,
             isPersonal: false,
             isOwner: false, // Adicione esta flag se seu modelo User tiver um campo para donos de academia
+<<<<<<< HEAD
             // profilePic: req.body.profilePic, // Se você quiser permitir upload no cadastro inicial
+=======
+>>>>>>> 9c679bf (fix)
         };
 
         // Adiciona campos específicos e define as flags de role com base no 'role' da URL
@@ -64,8 +76,11 @@ const createUser = async (req, res) => {
             case 'teacher':
                 userFields.isPersonal = true; // Assumindo 'isPersonal' para Personal Trainer
                 userFields.descricao = descricao ? descricao.trim() : null; // Descrição é string
+<<<<<<< HEAD
                 // Se 'idade' for um campo para teacher/nutritionist, adicione aqui (assumindo numérico)
                 // userFields.idade = req.body.idade;
+=======
+>>>>>>> 9c679bf (fix)
                 break;
             case 'owner':
                 userFields.isOwner = true; // Usar esta flag se houver um campo 'isOwner' no seu modelo User
@@ -75,8 +90,11 @@ const createUser = async (req, res) => {
             case 'nutritionist':
                 userFields.isNutritionist = true;
                 userFields.descricao = descricao ? descricao.trim() : null;
+<<<<<<< HEAD
                 // Se 'idade' for um campo para teacher/nutritionist, adicione aqui
                 // userFields.idade = req.body.idade;
+=======
+>>>>>>> 9c679bf (fix)
                 break;
             default:
                 // Se o role não for reconhecido, retorna um erro 400
@@ -105,6 +123,7 @@ const createUser = async (req, res) => {
         res.status(500).json({ error: 'Erro ao criar usuário', details: error.message });
     }
 };
+
 
 // Listar todos os usuários
 const getUsers = async (req, res) => {
