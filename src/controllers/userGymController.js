@@ -1,21 +1,92 @@
-const { UserGym } = require('../models');
+// src/controllers/userGymController.js
+const { User, UserGym } = require('../models');
+const crypto = require('crypto');
 
-async function linkUserGym(req, res) {
-  const { userId, gymId, role } = req.body;
-
+async function registerAndLinkUser(req, res) {
   try {
-    const novoVinculo = await UserGym.create({ userId, gymId, role });
-    return res.status(201).json({
-      message: 'Usuário vinculado com sucesso',
-      data: novoVinculo
+    console.log('↪️ registerAndLinkUser - req.user =', req.user);
+    const gymId   = req.user.sub;
+    const gymRole = req.user.role;
+    console.log('   → gymId, gymRole =', gymId, gymRole);
+
+    if (!gymId || gymRole !== 'gym') {
+      return res.status(403).json({ error: 'Apenas academias podem registrar usuários.' });
+    }
+
+    const { name, email, telefone, role } = req.body;
+    if (!name || !email || !telefone || !role) {
+      return res.status(400).json({ error: 'Campos obrigatórios não informados.' });
+    }
+
+    // trim nos dados
+    const trimmedEmail = email.trim();
+    let user = await User.findOne({ where: { email: trimmedEmail } });
+
+    if (user) {
+      await user.update({ name: name.trim(), telefone: telefone.trim() });
+    } else {
+      const tempPassword = crypto.randomBytes(8).toString('hex');
+      user = await User.create({
+        name: name.trim(),
+        email: trimmedEmail,
+        telefone: telefone.trim(),
+        password: tempPassword,
+        isPersonal: role === 'teacher',
+        isStudent:  role === 'student',
+        isOwner:       false,
+        isNutritionist:false,
+      });
+    }
+
+    // aqui ajustamos para 'professor', que é o valor do seu ENUM no banco
+    const userGymRole = role === 'teacher' ? 'professor' : 'user';
+
+    const [userGym, created] = await UserGym.findOrCreate({
+      where: { userId: user.id, gymId },
+      defaults: { role: userGymRole },
     });
+
+    if (!created) {
+      await userGym.update({ role: userGymRole });
+    }
+
+    return res.status(201).json({
+      message: `${name} vinculado(a) à academia com sucesso.`,
+      user,
+      userGym,
+    });
+
   } catch (err) {
-    console.error(err);
-    return res.status(400).json({
-      message: 'Erro ao vincular usuário',
-      error: err.message
+    console.error('❌ registerAndLinkUser error:', err);
+    return res.status(500).json({
+      error:  'Erro ao registrar/associar usuário à academia',
+      detail: err.message
     });
   }
 }
 
-module.exports = { linkUserGym };
+async function getAllTrainersByGym(req, res) {
+  console.log('↪️ getAllTrainersByGym chamado!');
+  console.log('    req.user =', req.user);
+  try {
+    console.log('↪️ getAllTrainersByGym - req.user =', req.user);
+    const gymId = req.user.sub;
+    console.log('   → listando trainers para gymId =', gymId);
+
+    const associations = await UserGym.findAll({
+      where: { gymId, role: 'professor' },
+      include: [{ model: User, attributes: ['id','name','email','telefone'] }]
+    });
+
+    return res.json(associations.map(a => a.User));
+
+  } catch (err) {
+    console.error('❌ getAllTrainersByGym error:', err);
+    return res.status(500).json({ error: 'Erro ao listar personais', detail: err.message });
+  }
+}
+
+module.exports = {
+  registerAndLinkUser,
+  getAllTrainersByGym
+};

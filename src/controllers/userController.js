@@ -13,93 +13,82 @@ const path = require('path');
 // Função para criar usuário - AGORA COM .trim() E LÓGICA DE ROLES AJUSTADA
 const createUser = async (req, res) => {
   try {
-        const { role } = req.params;
-        const { name, email, password, telefone, altura, peso, descricao, endereco, ocupacaoMaxima } = req.body;
+    const { role } = req.params;
+    const { name, email, password, telefone, altura, peso, descricao, endereco, ocupacaoMaxima } = req.body;
 
-        // Aplica .trim() em todos os campos de string relevantes imediatamente
-        const trimmedName = name ? name.trim() : null; // Lida com nome opcional
-        const trimmedEmail = email ? email.trim() : null;
-        const trimmedPassword = password ? password.trim() : null; // Senha deve ser tratada como string
-        const trimmedTelefone = telefone ? telefone.trim() : null; // Telefone é string
+    // 1) Trim de todas as strings
+    const trimmedName     = name     ? name.trim()     : null;
+    const trimmedEmail    = email    ? email.trim()    : null;
+    const trimmedPassword = password ? password.trim() : null;
+    const trimmedTelefone = telefone ? telefone.trim() : null;
 
-        // Validação inicial para campos obrigatórios (após trim)
-        if (!trimmedName || !trimmedEmail || !trimmedPassword) {
-            return res.status(400).json({ error: 'Nome, e-mail e senha são obrigatórios.' });
-        }
-
-        // HASHEIA A SENHA ANTES DE TUDO
-        const hashedPassword = await bcrypt.hash(trimmedPassword, 10); // Usa a senha já "trimada"
-
-        // Verifica se o e-mail já existe
-        const existingUser = await User.findOne({ where: { email: trimmedEmail } }); // Compara com e-mail "trimado"
-        if (existingUser) {
-            return res.status(409).json({ error: 'E-mail já cadastrado.' });
-        }
-
-        // Prepara o objeto de dados do usuário
-        let userFields = {
-            name: trimmedName,
-            email: trimmedEmail,
-            password: hashedPassword, // Usa a senha já hashed
-            telefone: trimmedTelefone, // Telefone tratado aqui, será null se não enviado/preenchido
-
-            // Inicializa todas as flags de role como false
-            isStudent: false,
-            isNutritionist: false,
-            isPersonal: false,
-            isOwner: false, // Adicione esta flag se seu modelo User tiver um campo para donos de academia
-
-        };
-
-        // Adiciona campos específicos e define as flags de role com base no 'role' da URL
-        switch (role) {
-            case 'student':
-                userFields.isStudent = true;
-                userFields.peso = peso; // Assume que peso/altura são números, não precisam de .trim()
-                userFields.altura = altura;
-                break;
-            case 'teacher':
-                userFields.isPersonal = true; // Assumindo 'isPersonal' para Personal Trainer
-                userFields.descricao = descricao ? descricao.trim() : null; // Descrição é string
-
-                break;
-            case 'owner':
-                userFields.isOwner = true; // Usar esta flag se houver um campo 'isOwner' no seu modelo User
-                userFields.endereco = endereco ? endereco.trim() : null; // Endereço é string
-                userFields.ocupacaoMaxima = ocupacaoMaxima; // Assume numérico
-                break;
-            case 'nutritionist':
-                userFields.isNutritionist = true;
-                userFields.descricao = descricao ? descricao.trim() : null;
-
-                break;
-            default:
-                // Se o role não for reconhecido, retorna um erro 400
-                return res.status(400).json({ error: 'Tipo de usuário inválido.' });
-        }
-
-        // Cria o usuário no banco de dados com os campos preparados
-        const user = await User.create(userFields);
-
-        // Gera e retorna o token JWT
-        const token = generateToken({ id: user.id, email: user.email, role: role }); // Inclua o role no token se precisar
-
-        res.status(201).json({
-            user: {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                role: role // Retorna o role string para o front-end
-            },
-            token
-        });
-
-    } catch (error) {
-        // Loga o erro completo para depuração
-        console.error('Erro detalhado ao criar usuário:', error);
-        res.status(500).json({ error: 'Erro ao criar usuário', details: error.message });
+    // 2) Validação de campos obrigatórios
+    if (!trimmedName || !trimmedEmail || !trimmedPassword) {
+      return res.status(400).json({ error: 'Nome, e-mail e senha são obrigatórios.' });
     }
+
+    // 3) Verifica se já existe usuário com esse e-mail
+    const existingUser = await User.findOne({ where: { email: trimmedEmail } });
+    if (existingUser) {
+      return res.status(409).json({ error: 'E-mail já cadastrado.' });
+    }
+
+    // 4) Monta objeto base de criação (sem hash manual)
+    const userFields = {
+      name:     trimmedName,
+      email:    trimmedEmail,
+      password: trimmedPassword,  // <— sem bcrypt.hash aqui
+      telefone: trimmedTelefone,
+      isStudent:      false,
+      isNutritionist: false,
+      isPersonal:     false,
+      isOwner:        false,
+    };
+
+    // 5) Ajusta flags e campos específicos por role
+    switch (role) {
+      case 'student':
+        userFields.isStudent = true;
+        userFields.peso   = peso;
+        userFields.altura = altura;
+        break;
+
+      case 'teacher':
+        userFields.isPersonal = true;
+        userFields.descricao  = descricao ? descricao.trim() : null;
+        break;
+
+      case 'owner':
+        userFields.isOwner        = true;
+        userFields.endereco      = endereco ? endereco.trim() : null;
+        userFields.ocupacaoMaxima = ocupacaoMaxima;
+        break;
+
+      case 'nutritionist':
+        userFields.isNutritionist = true;
+        userFields.descricao      = descricao ? descricao.trim() : null;
+        break;
+
+      default:
+        return res.status(400).json({ error: 'Tipo de usuário inválido.' });
+    }
+
+    // 6) Cria o usuário — o hook do model (beforeCreate) fará o bcrypt.hash(user.password)
+    const user = await User.create(userFields);
+
+    // 7) Gera token JWT e retorna
+    const token = generateToken({ id: user.id, email: user.email, role });
+    return res.status(201).json({
+      user: { id: user.id, name: user.name, email: user.email, role },
+      token
+    });
+
+  } catch (error) {
+    console.error('Erro detalhado ao criar usuário:', error);
+    return res.status(500).json({ error: 'Erro ao criar usuário', details: error.message });
+  }
 };
+
 
 
 // Listar todos os usuários
@@ -208,47 +197,66 @@ const findUserWorkoutPlans = async (req, res) => {
 
 // Função de login
 const loginUser = async (req, res) => {
-    try {
-        const { email, password } = req.body;
+  try {
+    console.log('BODY RECEBIDO:', req.body);
 
-        // Aplica .trim() nos campos de login também
-        const trimmedEmail = email ? email.trim() : null;
-        const trimmedPassword = password ? password.trim() : null;
+    const { email, password } = req.body;
+    const trimmedEmail    = email    ? email.trim()    : null;
+    const trimmedPassword = password ? password.trim() : null;
+    console.log('trimmedPassword:', trimmedPassword);
 
-        const user = await User.findOne({ where: { email: trimmedEmail } }); // Compara com e-mail "trimado"
-        if (!user) {
-            console.log('Usuário não encontrado para E-mail:', trimmedEmail);
-            return res.status(401).json({ error: 'Usuário não encontrado.' });
-        }
-        console.log('Usuário encontrado. Senha hashada no DB:', user.password);
+    const user = await User.findOne({ where: { email: trimmedEmail } });
+    if (!user) {
+      console.log('Usuário não encontrado para E-mail:', trimmedEmail);
+      return res.status(401).json({ error: 'Usuário não encontrado.' });
+    }
 
-        // Compara a senha "trimada" com o hash do DB
-        const passwordMatch = await bcrypt.compare(trimmedPassword, user.password);
-        console.log('Resultado da comparação de senha (bcrypt.compare):', passwordMatch); // DEVE SER TRUE PARA SUCESSO
+    console.log('hashAtualNoDB:', user.password);
 
-        if (!passwordMatch) {
-            console.log('Senha incorreta para E-mail:', trimmedEmail);
-            return res.status(401).json({ error: 'Senha incorreta.' });
-        }
+    const passwordMatch = await bcrypt.compare(trimmedPassword, user.password);
+    console.log('passwordMatch:', passwordMatch);
 
-        const token = generateToken({ id: user.id, email: user.email, tipo: user.role }); // Use user.role ou role, dependendo de como você mapeia
-        console.log('Token gerado:', token);
+    if (!passwordMatch) {
+      console.log('Senha incorreta para E-mail:', trimmedEmail);
+      return res.status(401).json({ error: 'Senha incorreta.' });
+    }
 
-        res.json({
+    const token = generateToken({ id: user.id, email: user.email, tipo: user.role });
+    console.log('Token gerado:', token);
+
+            // e depois de validar a senha, insira:
+            let tipo;
+            if      (user.isStudent)      tipo = 'student';
+            else if (user.isPersonal)     tipo = 'teacher';
+            else if (user.isOwner)        tipo = 'owner';
+            else if (user.isNutritionist) tipo = 'nutritionist';
+            else                          tipo = 'unknown';  // fallback
+
+            console.log('→ Determinando tipo a partir das flags:', tipo);
+
+
+            console.log('→ JSON final:', {
+                user: { id: user.id, name: user.name, email: user.email, tipo },
+                token
+                });
+
+            // e então retorne:
+            return res.json({
             user: {
-                id: user.id,
-                name: user.name,
+                id:    user.id,
+                name:  user.name,
                 email: user.email,
-                tipo: user.role
+                tipo,              // essa variável agora vem corretamente
             },
             token
-        });
+            });
 
-    } catch (error) {
-        console.error('Erro no login:', error);
-        res.status(500).json({ error: 'Erro no login', details: error.message });
-    }
-};
+            } catch (error) {
+                console.error('Erro no login:', error);
+                return res.status(500).json({ error: 'Erro no login', details: error.message });
+            }
+            };
+
 
 // Configuração do Nodemailer para envio de e-mails
 const transporter = nodemailer.createTransport({
