@@ -17,7 +17,8 @@ const {
 const {
   registerAndLinkUser,
   getAllTrainersByGym,
-  getAllStudentsByGym
+  getAllStudentsByGym,
+  unlinkUserFromGym
 } = require('../controllers/userGymController');
 
 const router = express.Router();
@@ -47,6 +48,8 @@ router.delete('/:id', deleteGym);
 
 // — Associação de usuário (personal/student) —
 router.post('/register-user', registerAndLinkUser);
+router.delete('/delete-user/:userId', unlinkUserFromGym);
+
 
 
 module.exports = router;

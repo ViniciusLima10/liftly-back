@@ -106,9 +106,33 @@ async function getAllStudentsByGym(req, res) {
   }
 }
 
+async function unlinkUserFromGym(req, res) {
+  try {
+    const gymId = req.user.sub;
+    const { userId } = req.params;
 
+    if (!userId) {
+      return res.status(400).json({ error: 'ID do usuário não informado.' });
+    }
+
+    const userGym = await UserGym.findOne({ where: { userId, gymId } });
+
+    if (!userGym) {
+      return res.status(404).json({ error: 'Vínculo não encontrado.' });
+    }
+
+    await userGym.destroy();
+
+    return res.status(200).json({ message: 'Usuário desvinculado da academia com sucesso.' });
+
+  } catch (err) {
+    console.error('❌ unlinkUserFromGym error:', err);
+    return res.status(500).json({ error: 'Erro ao desvincular usuário da academia', detail: err.message });
+  }
+}
 module.exports = {
   registerAndLinkUser,
   getAllTrainersByGym,
-  getAllStudentsByGym
+  getAllStudentsByGym,
+  unlinkUserFromGym
 };
