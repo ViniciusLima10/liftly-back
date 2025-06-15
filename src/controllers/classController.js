@@ -1,4 +1,4 @@
-const { Class } = require('../models');
+const { Class, UserGym } = require('../models');
 
 const createClass = async (req, res) => {
   try {
@@ -68,4 +68,29 @@ const deleteClass = async (req, res) => {
   }
 };
 
-module.exports = { createClass, getClasses, getClassById, updateClass, deleteClass };
+
+const getAvailableClassesForStudent = async (req, res) => {
+  const userId = req.user?.sub;
+
+  try {
+    // Verifica se o aluno está vinculado a alguma academia
+    const vinculo = await UserGym.findOne({ where: { userId } });
+    if (!vinculo) {
+      return res.status(403).json({ error: 'Aluno não vinculado a nenhuma academia.' });
+    }
+
+    // Busca as aulas da academia do aluno
+    const aulas = await Class.findAll({
+      where: { gymId: vinculo.gymId }
+    });
+
+    return res.json(aulas);
+
+  } catch (err) {
+    console.error('❌ Erro ao buscar aulas disponíveis:', err);
+    return res.status(500).json({ error: 'Erro ao buscar aulas', detail: err.message });
+  }
+};
+
+
+module.exports = { createClass, getClasses, getClassById, updateClass, deleteClass, getAvailableClassesForStudent};

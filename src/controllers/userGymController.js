@@ -2,6 +2,20 @@
 const { User, UserGym } = require('../models');
 const crypto = require('crypto');
 
+async function getMyGym(req, res) {
+  try {
+    const userId = req.user.sub;
+    const association = await UserGym.findOne({ where: { userId } });
+
+    if (!association) return res.status(404).json({ error: "Usuário não vinculado a nenhuma academia" });
+
+    res.json({ gymId: association.gymId });
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao buscar academia do usuário', detail: err.message });
+  }
+}
+
+
 async function registerAndLinkUser(req, res) {
   try {
     console.log('↪️ registerAndLinkUser - req.user =', req.user);
@@ -134,5 +148,6 @@ module.exports = {
   registerAndLinkUser,
   getAllTrainersByGym,
   getAllStudentsByGym,
-  unlinkUserFromGym
+  unlinkUserFromGym, 
+  getMyGym
 };

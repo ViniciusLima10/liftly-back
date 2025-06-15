@@ -60,6 +60,12 @@ module.exports = (sequelize, DataTypes) => {
       as: 'instructor',
       onDelete: 'CASCADE',
     });
+
+    Class.hasMany(models.Schedule, {
+      foreignKey: 'classId',
+      as: 'Schedules',
+    });
+
   };
 
   return Class;
