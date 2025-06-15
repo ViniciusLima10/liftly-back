@@ -225,8 +225,7 @@ const resetPasswordGym = async (req, res) => {
 
 const getClassesForGym = async (req, res) => {
   try {
-    // se vc copiou req.auth para req.user no middleware, use req.user.sub
-    const gymId = req.auth?.sub || req.user?.sub;
+    const gymId = req.user?.sub;
     if (!gymId) {
       return res.status(401).json({ error: 'Token inválido ou expirado' });
     }
@@ -234,9 +233,11 @@ const getClassesForGym = async (req, res) => {
     const classes = await Class.findAll({
       where: { gymId },
       include: [
-        { model: User, as: 'instructor', attributes: ['id', 'name', 'email'] },
-        // se quiser detalhes da academia, inclua Gym também:
-        // { model: Gym, as: 'gym', attributes: ['id', 'name'] },
+        {
+          model: User,
+          as: 'instructor', // ← ESSENCIAL
+          attributes: ['id', 'name', 'email']
+        }
       ],
       order: [['startTime', 'ASC']],
     });
@@ -244,9 +245,10 @@ const getClassesForGym = async (req, res) => {
     return res.json(classes);
   } catch (err) {
     console.error('Erro ao buscar aulas da academia:', err);
-    return res.status(500).json({ error: 'Erro ao buscar aulas da academia' });
+    return res.status(500).json({ error: 'Erro ao buscar aulas da academia', details: err.message });
   }
 };
+
 
 
 

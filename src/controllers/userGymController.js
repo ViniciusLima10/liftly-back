@@ -41,6 +41,8 @@ async function registerAndLinkUser(req, res) {
     // aqui ajustamos para 'professor', que é o valor do seu ENUM no banco
     const userGymRole = role === 'teacher' ? 'professor' : 'user';
 
+    console.log('➡️ Dados para vincular:', { userId: user.id, gymId, userGymRole });
+
     const [userGym, created] = await UserGym.findOrCreate({
       where: { userId: user.id, gymId },
       defaults: { role: userGymRole },
@@ -75,10 +77,10 @@ async function getAllTrainersByGym(req, res) {
 
     const associations = await UserGym.findAll({
       where: { gymId, role: 'professor' },
-      include: [{ model: User, attributes: ['id','name','email','telefone'] }]
+      include: [{ model: User, as: 'user', attributes: ['id','name','email','telefone'] }]
     });
 
-    return res.json(associations.map(a => a.User));
+     return res.json(associations.map(a => a.user));
 
   } catch (err) {
     console.error('❌ getAllTrainersByGym error:', err);
@@ -86,7 +88,27 @@ async function getAllTrainersByGym(req, res) {
   }
 }
 
+async function getAllStudentsByGym(req, res) {
+  console.log('↪️ getAllStudentsByGym chamado!');
+  const gymId = req.user?.sub;
+
+  try {
+    const associations = await UserGym.findAll({
+      where: { gymId, role: 'user' }, // ← alunos são 'user'
+      include: [{ model: User, as:'user', attributes: ['id', 'name', 'email', 'telefone'] }]
+    });
+
+    return res.json(associations.map(a => a.user));
+
+  } catch (err) {
+    console.error('❌ getAllStudentsByGym error:', err);
+    return res.status(500).json({ error: 'Erro ao listar alunos', detail: err.message });
+  }
+}
+
+
 module.exports = {
   registerAndLinkUser,
-  getAllTrainersByGym
+  getAllTrainersByGym,
+  getAllStudentsByGym
 };

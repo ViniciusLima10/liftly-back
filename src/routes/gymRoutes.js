@@ -16,7 +16,8 @@ const {
 
 const {
   registerAndLinkUser,
-  getAllTrainersByGym
+  getAllTrainersByGym,
+  getAllStudentsByGym
 } = require('../controllers/userGymController');
 
 const router = express.Router();
@@ -33,6 +34,11 @@ router.get('/classes', authMiddleware, getClassesForGym);
 // A partir daqui, todas abaixo já usam authMiddleware
 router.use(authMiddleware);
 
+// — Listar personal trainers associados —
+router.get('/trainers', getAllTrainersByGym);
+router.get('/students', getAllStudentsByGym);
+
+
 // — CRUD de academias —
 router.get('/', getGyms);
 router.get('/:id', getGymById);
@@ -42,7 +48,5 @@ router.delete('/:id', deleteGym);
 // — Associação de usuário (personal/student) —
 router.post('/register-user', registerAndLinkUser);
 
-// — Listar personal trainers associados —
-router.get('/trainers', getAllTrainersByGym);
 
 module.exports = router;

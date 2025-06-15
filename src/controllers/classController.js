@@ -2,12 +2,24 @@ const { Class } = require('../models');
 
 const createClass = async (req, res) => {
   try {
-    const newClass = await Class.create(req.body);
+    const gymId = req.user?.sub; // ← extraído do token JWT
+
+    if (!gymId) {
+      return res.status(401).json({ error: 'Academia não autenticada.' });
+    }
+
+    const newClass = await Class.create({
+      ...req.body,
+      gymId
+    });
+
     res.status(201).json(newClass);
   } catch (error) {
+    console.error("❌ Erro ao criar aula:", error);
     res.status(500).json({ error: 'Erro ao criar aula', details: error.message });
   }
 };
+
 
 const getClasses = async (req, res) => {
   try {
