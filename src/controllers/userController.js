@@ -221,7 +221,8 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ error: 'Senha incorreta.' });
     }
 
-    const token = generateToken({ id: user.id, email: user.email, tipo: user.role });
+   const token = generateToken({ sub: user.id, email: user.email, tipo: user.role });
+
     console.log('Token gerado:', token);
 
             // e depois de validar a senha, insira:

@@ -9,7 +9,7 @@ const getPersonals = async (req, res) => {
       include: {
         model: User,
         as: 'provider',
-        attributes: ['name', 'idade']
+        attributes: ['name']
       }
     });
     res.json(personals);
@@ -25,7 +25,7 @@ const getPersonal = async (req, res) => {
     const includeProvider = {
       model: User,
       as: 'provider',
-      attributes: ['name', 'idade']
+      attributes: ['name']
     };
 
     if (req.params.id) {
@@ -55,7 +55,7 @@ const getNutritionists = async (req, res) => {
       include: {
         model: User,
         as: 'provider',
-        attributes: ['name', 'idade']
+        attributes: ['name']
       }
     });
     res.json(nutritionists);
@@ -71,7 +71,7 @@ const getNutritionist = async (req, res) => {
     const includeProvider = {
       model: User,
       as: 'provider',
-      attributes: ['name', 'idade']
+      attributes: ['name']
     };
 
     if (req.params.id) {
