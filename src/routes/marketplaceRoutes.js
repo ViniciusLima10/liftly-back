@@ -8,7 +8,7 @@ const router = express.Router();
 router.use(authMiddleware);
 
 router.post("/:providerId", createService);
-router.delete("/:id", createService);
+router.delete("/:id", deleteService);
 router.get('/service/:providerId', getServiceByProviderId);
 
 
