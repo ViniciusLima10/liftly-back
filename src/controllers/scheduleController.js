@@ -39,7 +39,8 @@ const getAvailableClasses = async (req, res) => {
 
 const createBooking = async (req, res) => {
   try {
-    const userId = req.user.userId;
+    const userId = req.user.sub;
+
 
     const { classId } = req.body;
 
@@ -60,7 +61,8 @@ const createBooking = async (req, res) => {
 
 const cancelSchedule = async (req, res) => {
   try {
-    const userId = req.user.userId;
+   const userId = req.user.sub;
+
 
     const schedule = await Schedule.findByPk(req.params.id);
     if (!schedule || schedule.userId !== userId) {
@@ -79,7 +81,8 @@ const cancelSchedule = async (req, res) => {
 
 const createSchedule = async (req, res) => {
   try {
-    const userId = req.user.userId;
+    const userId = req.user.sub;
+
 
     const { classId } = req.body;
 
@@ -162,7 +165,8 @@ const deleteSchedule = async (req, res) => {
 const getSchedules = async (req, res) => {
  console.log("↪️ req.user =", req.user); 
   try {
-    const userId = req.user.userId;
+    const userId = req.user.sub;
+
 
     const schedules = await Schedule.findAll({
       where: { userId },

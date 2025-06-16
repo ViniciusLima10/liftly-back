@@ -5,6 +5,7 @@ const crypto = require('crypto');
 async function getMyGym(req, res) {
   try {
     const userId = req.user.sub;
+
     const association = await UserGym.findOne({ where: { userId } });
 
     if (!association) return res.status(404).json({ error: "Usuário não vinculado a nenhuma academia" });
