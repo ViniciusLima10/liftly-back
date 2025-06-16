@@ -1,6 +1,7 @@
 // src/controllers/marketplaceController.js
 const { MarketplaceService, User } = require('../models');
 
+// Função para buscar todos os personais
 const getPersonals = async (req, res) => {
   try {
     const personals = await MarketplaceService.findAll({
@@ -17,6 +18,7 @@ const getPersonals = async (req, res) => {
   }
 };
 
+// Função para buscar um personal por ID ou nome
 const getPersonal = async (req, res) => {
   try {
     let personal;
@@ -45,6 +47,7 @@ const getPersonal = async (req, res) => {
   }
 };
 
+// Função para buscar todos os nutricionistas
 const getNutritionists = async (req, res) => {
   try {
     const nutritionists = await MarketplaceService.findAll({
@@ -61,6 +64,7 @@ const getNutritionists = async (req, res) => {
   }
 };
 
+// Função para buscar um nutricionista por ID ou nome
 const getNutritionist = async (req, res) => {
   try {
     let nutritionist;
@@ -89,9 +93,93 @@ const getNutritionist = async (req, res) => {
   }
 };
 
+// Função para criar um serviço (somente um serviço por providerId)
+const createService = async (req, res) => {
+  try {
+    const { providerId } = req.params;  // providerId vem da URL
+    const { role, title, description, price } = req.body;
+
+    // Validações simples
+    if (!providerId || !role || !title || !price) {
+      return res.status(400).json({ error: "Faltam dados obrigatórios: providerId, role, title, price." });
+    }
+
+    // Verificando se já existe um serviço para esse providerId
+    const existingService = await MarketplaceService.findOne({ where: { providerId } });
+
+    if (existingService) {
+      return res.status(400).json({ error: "Já existe um serviço cadastrado para esse providerId." });
+    }
+
+    // Criando o serviço no banco
+    const newService = await MarketplaceService.create({
+      providerId,
+      role,
+      title,
+      description,
+      price,
+      available: true,  // sempre true, conforme solicitado
+    });
+
+    // Respondendo com o serviço criado
+    res.status(201).json(newService);
+  } catch (err) {
+    res.status(500).json({ error: "Erro ao cadastrar serviço", details: err.message });
+  }
+};
+
+// Função para deletar um serviço
+const deleteService = async (req, res) => {
+  try {
+    const { id } = req.params;  // Pega o ID do serviço a partir da URL
+
+    // Verificando se o serviço existe
+    const service = await MarketplaceService.findByPk(id);
+    if (!service) {
+      return res.status(404).json({ error: "Serviço não encontrado!" });
+    }
+
+    // Deletando o serviço
+    await service.destroy();
+
+    res.status(200).json({ message: "Serviço removido com sucesso!" });
+  } catch (err) {
+    res.status(500).json({ error: "Erro ao remover serviço", details: err.message });
+  }
+};
+
+// Função para obter o serviço cadastrado para um providerId
+const getServiceByProviderId = async (req, res) => {
+  try {
+    const { providerId } = req.params;  // providerId vem da URL
+
+    // Buscando o serviço para esse providerId
+    const service = await MarketplaceService.findOne({
+      where: { providerId },
+      include: {
+        model: User,
+        as: 'provider',
+        attributes: ['name', 'idade']
+      }
+    });
+
+    if (!service) {
+      return res.status(404).json({ error: "Serviço não encontrado para esse providerId!" });
+    }
+
+    // Retornando o serviço encontrado
+    res.json(service);
+  } catch (err) {
+    res.status(500).json({ error: "Erro ao buscar serviço", details: err.message });
+  }
+};
+
 module.exports = {
   getPersonals,
   getPersonal,
   getNutritionists,
-  getNutritionist
+  getNutritionist,
+  createService,
+  deleteService,
+  getServiceByProviderId  // Adicionando o novo controlador
 };
