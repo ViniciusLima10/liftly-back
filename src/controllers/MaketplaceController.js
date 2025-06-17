@@ -9,14 +9,15 @@ const getPersonals = async (req, res) => {
       include: {
         model: User,
         as: 'provider',
-        attributes: ['name']
-      }
+        attributes: ['name', 'telefone'], // Incluindo o telefone
+      },
     });
     res.json(personals);
   } catch (err) {
     res.status(500).json({ error: "Erro ao buscar personais", details: err.message });
   }
 };
+
 
 // Função para buscar um personal por ID ou nome
 const getPersonal = async (req, res) => {
@@ -55,14 +56,15 @@ const getNutritionists = async (req, res) => {
       include: {
         model: User,
         as: 'provider',
-        attributes: ['name']
-      }
+        attributes: ['name', 'telefone'], // Incluindo o telefone
+      },
     });
     res.json(nutritionists);
   } catch (err) {
     res.status(500).json({ error: "Erro ao buscar nutricionistas", details: err.message });
   }
 };
+
 
 // Função para buscar um nutricionista por ID ou nome
 const getNutritionist = async (req, res) => {
@@ -152,6 +154,7 @@ const deleteService = async (req, res) => {
 const getServiceByProviderId = async (req, res) => {
   try {
     const { providerId } = req.params;  // providerId vem da URL
+    console.log("Buscando serviço para providerId:", providerId);
 
     // Buscando o serviço para esse providerId
     const service = await MarketplaceService.findOne({
@@ -159,7 +162,7 @@ const getServiceByProviderId = async (req, res) => {
       include: {
         model: User,
         as: 'provider',
-        attributes: ['name', 'idade']
+        attributes: ['name']
       }
     });
 
