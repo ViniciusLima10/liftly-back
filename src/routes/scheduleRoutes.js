@@ -1,21 +1,21 @@
 const express = require('express');
-const authMiddleware = require('../middleware/authMiddleware');
-const {
-  createSchedule,
-  getSchedules,
-  getScheduleById,
-  updateSchedule,
-  deleteSchedule,
-} = require('../controllers/scheduleController');
-
 const router = express.Router();
+const authMiddleware = require('../middleware/authMiddleware');
+const scheduleController = require('../controllers/scheduleController');
 
+// Middleware de autenticação para aluno
 router.use(authMiddleware);
 
-router.post('/', createSchedule);
-router.get('/', getSchedules);
-router.get('/:id', getScheduleById);
-router.put('/:id', updateSchedule);
-router.delete('/:id', deleteSchedule);
+// NOVAS ROTAS
+router.get('/available-classes', scheduleController.getAvailableClasses);
+router.post('/book', scheduleController.createBooking);
+router.put('/cancel/:id', scheduleController.cancelSchedule);
+
+// ROTAS JÁ EXISTENTES
+router.get('/', scheduleController.getSchedules);
+router.get('/:id', scheduleController.getScheduleById);
+router.post('/', scheduleController.createSchedule);
+router.put('/:id', scheduleController.updateSchedule);
+router.delete('/:id', scheduleController.deleteSchedule);
 
 module.exports = router;

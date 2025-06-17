@@ -1,7 +1,5 @@
 'use strict';
 
-//quem está vinculado a academia e qual papel (aluno, adm, personal)
-
 module.exports = (sequelize, DataTypes) => {
   const UserGym = sequelize.define(
     'UserGym',
@@ -28,9 +26,9 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       role: {
-        type: DataTypes.ENUM('professor', 'manager', 'user'), 
+        type: DataTypes.ENUM('professor', 'manager', 'user'),
         allowNull: false,
-        defaultValue: 'user', 
+        defaultValue: 'user',
       },
     },
     {
@@ -39,18 +37,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  // Definição das associações
   UserGym.associate = function (models) {
-    models.User.belongsToMany(models.Gym, {
-      through: UserGym,
+    // Associa cada UserGym a um usuário
+    UserGym.belongsTo(models.User, {
       foreignKey: 'userId',
-      as: 'userGyms',
+      as: 'user'
     });
 
-    models.Gym.belongsToMany(models.User, {
-      through: UserGym,
+    // Associa cada UserGym a uma academia
+    UserGym.belongsTo(models.Gym, {
       foreignKey: 'gymId',
-      as: 'gymUsers',
+      as: 'gym'
     });
   };
 

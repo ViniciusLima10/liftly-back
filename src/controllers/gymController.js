@@ -1,4 +1,4 @@
-const { Gym, User, UserGym } = require('../models'); // Adicionado User e UserGym
+const { Gym, User, UserGym, Class} = require('../models'); // Adicionado User e UserGym
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
@@ -17,13 +17,34 @@ const transporter = nodemailer.createTransport({
 });
 
 const createGym = async (req, res) => {
-    try {
-        const gym = await Gym.create(req.body);
-        res.status(201).json(gym);
-    } catch (error) {
-        res.status(500).json({ error: 'Erro ao criar academia', details: error.message });
-    }
+  try {
+    const { name, email, password, endereco, ocupacaoMaxima } = req.body;
+
+        if (!name?.trim() || !email?.trim() || !password?.trim() || !endereco?.trim() || !ocupacaoMaxima)
+            return res.status(400).json({ error: 'name, email, password, endereco e ocupacaoMaxima são obrigatórios' });
+
+                const gym = await Gym.create({
+                name:          name.trim(),
+                email:         email.trim(),
+                password:      password.trim(),
+                address:       endereco.trim(),
+                capacity:      Number(ocupacaoMaxima),
+                });
+
+    return res.status(201).json({
+      id: gym.id,
+      name: gym.name,
+      email: gym.email,
+      address: gym.address,
+      capacity: gym.capacity
+    });
+  } catch(err) {
+    console.error(err);
+    return res.status(500).json({ error:'Erro ao criar academia', details: err.message });
+  }
 };
+
+
 
 const getGyms = async (req, res) => {
     try {
@@ -108,7 +129,16 @@ const loginGym = async (req, res) => {
 
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 
-        return res.status(200).json({ message: 'Login realizado com sucesso', token, gymId: gym.id, gymName: gym.name }); // Retorna gymId e gymName
+        return res.status(200).json({
+            user: {
+                id: gym.id,
+                name: gym.name,
+                email: gym.email,
+                role: 'gym'
+            },
+            token
+            });
+
     } catch (error) {
         console.error('Erro ao realizar login da academia:', error);
         return res.status(500).json({ error: 'Erro ao realizar login', details: error.message });
@@ -192,98 +222,36 @@ const resetPasswordGym = async (req, res) => {
     }
 };
 
-// ********************************************************************************
-// NOVA FUNÇÃO: Cadastrar Personal Trainer/Aluno pela Academia (RF.13 e RF.21)
-// ********************************************************************************
-const registerUserByGym = async (req, res) => {
-    try {
-        // ID da academia logada (obtido do token JWT decodificado pelo authMiddleware)
-        const gymId = req.user.gymId; // Supondo que o authMiddleware adicione o gymId ao req.user
-                                     // Ou req.payload.sub se o sub do token for o gymId
-        const gymRole = req.user.role; // Supondo que o authMiddleware adicione o role da academia
 
-        // Verificação de Autorização: Apenas 'gym' (owner) pode cadastrar
-        if (!gymId || gymRole !== 'gym') {
-            return res.status(403).json({ error: 'Acesso negado. Apenas academias podem cadastrar usuários.' });
-        }
-
-        // Dados do usuário a ser cadastrado/associado (Personal Trainer ou Aluno)
-        const { name, email, telefone, role } = req.body; // 'role' será 'teacher' ou 'student'
-
-        // Aplica .trim() nos dados de entrada
-        const trimmedName = name ? name.trim() : null;
-        const trimmedEmail = email ? email.trim() : null;
-        const trimmedTelefone = telefone ? telefone.trim() : null;
-
-        if (!trimmedName || !trimmedEmail || !trimmedTelefone || !role) {
-            return res.status(400).json({ error: 'Nome, e-mail, telefone e papel (role) são obrigatórios.' });
-        }
-
-        // 1. Encontrar ou Criar o Usuário na tabela 'Users'
-        let user;
-        const existingUser = await User.findOne({ where: { email: trimmedEmail } });
-
-        if (existingUser) {
-            user = existingUser;
-            // Opcional: Atualizar dados do usuário se necessário (nome, telefone)
-            await user.update({
-                name: trimmedName,
-                telefone: trimmedTelefone
-            });
-        } else {
-            // Se o usuário não existe, precisa de uma senha.
-            // Para cadastro de personal/aluno pela academia, podemos gerar uma senha temporária
-            // e exigir que o usuário a redefina, ou ter um campo de senha no formulário da academia.
-            // Por simplicidade, vamos gerar uma senha aleatória para o primeiro cadastro
-            // e exigir redefinição (similar ao forgotPassword).
-            const tempPassword = crypto.randomBytes(8).toString('hex'); // Senha temporária
-            // O hash da senha será feito no hook beforeCreate do modelo User
-
-            user = await User.create({
-                name: trimmedName,
-                email: trimmedEmail,
-                password: tempPassword, // A senha será hashada pelo hook do modelo User
-                telefone: trimmedTelefone,
-                // Define as flags iniciais com base no 'role' fornecido
-                isPersonal: (role === 'teacher'),
-                isStudent: (role === 'student'),
-                isNutritionist: false, // Pode ser ajustado se a academia cadastrar nutricionistas
-                isOwner: false, // Pode ser ajustado
-            });
-
-            // Opcional: Enviar e-mail para o usuário com a senha temporária e link para redefinir
-            // const resetToken = crypto.randomBytes(20).toString('hex');
-            // const resetTokenExpires = new Date(Date.now() + 3600000);
-            // await user.update({ resetToken, resetTokenExpires });
-            // const resetLink = `http://localhost:3000/reset-password/${resetToken}`; // Link do front-end para o usuário
-            // sendEmail(user.email, 'Sua Conta foi Criada!', `Sua senha temporária é: ${tempPassword}. Redefina aqui: ${resetLink}`);
-            // console.log(`Senha temporária para ${user.email}: ${tempPassword}`); // Para depuração
-        }
-
-        // 2. Criar ou Encontrar a Associação na tabela 'UserGyms'
-        // 'role' aqui é o papel do usuário DENTRO da academia ('professor' ou 'user')
-        const userGymRole = (role === 'teacher' ? 'professor' : 'user'); // Mapeia 'teacher' para 'professor', 'student' para 'user'
-
-        const [userGymAssociation, created] = await UserGym.findOrCreate({
-            where: { userId: user.id, gymId: gymId },
-            defaults: {
-                role: userGymRole // O papel dentro da academia
-            }
-        });
-
-        if (!created) {
-            // Se a associação já existia, podemos atualizá-la ou apenas retornar
-            await userGymAssociation.update({ role: userGymRole }); // Garante que o papel esteja atualizado
-            return res.status(200).json({ message: `${trimmedName} já estava associado(a) a esta academia, papel atualizado para ${userGymRole}.`, user: user, userGym: userGymAssociation });
-        }
-
-        res.status(201).json({ message: `${trimmedName} cadastrado(a) e associado(a) à academia como ${userGymRole}!`, user: user, userGym: userGymAssociation });
-
-    } catch (error) {
-        console.error('Erro ao cadastrar/associar usuário à academia:', error);
-        res.status(500).json({ error: 'Erro ao cadastrar/associar usuário à academia', details: error.message });
+const getClassesForGym = async (req, res) => {
+  try {
+    const gymId = req.user?.sub;
+    if (!gymId) {
+      return res.status(401).json({ error: 'Token inválido ou expirado' });
     }
+
+    const classes = await Class.findAll({
+      where: { gymId },
+      include: [
+        {
+          model: User,
+          as: 'instructor', // ← ESSENCIAL
+          attributes: ['id', 'name', 'email']
+        }
+      ],
+      order: [['startTime', 'ASC']],
+    });
+
+    return res.json(classes);
+  } catch (err) {
+    console.error('Erro ao buscar aulas da academia:', err);
+    return res.status(500).json({ error: 'Erro ao buscar aulas da academia', details: err.message });
+  }
 };
+
+
+
+
 
 module.exports = {
     createGym,
@@ -293,6 +261,6 @@ module.exports = {
     deleteGym,
     loginGym,
     forgotPasswordGym,
-    resetPasswordGym,
-    registerUserByGym // Exporta a nova função
+    resetPasswordGym, 
+    getClassesForGym
 };

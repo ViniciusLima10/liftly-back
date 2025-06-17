@@ -75,12 +75,17 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   User.associate = function (models) {
-    User.belongsToMany(models.Gym, {
-      through: 'UserGym',
-      foreignKey: 'userId',
-      as: 'gyms',
-    });
-  };
+  User.belongsToMany(models.Gym, {
+    through: models.UserGym,
+    foreignKey: 'userId',
+    as: 'gymsThroughUserGym',
+  });
+
+  User.hasMany(models.UserGym, {
+    foreignKey: 'userId',
+    as: 'userGyms',
+  });
+};
 
   User.prototype.validatePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
