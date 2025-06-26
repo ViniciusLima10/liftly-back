@@ -33,7 +33,6 @@ module.exports = (sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false,
-        field: 'password',
       },
     },
     {
@@ -45,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
+  // Hash de senha antes de salvar
   Gym.beforeCreate(async (gym) => {
     if (gym.password) {
       gym.password = await bcrypt.hash(gym.password, 10);
@@ -57,16 +57,26 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
+  // Método de validação de senha
   Gym.prototype.validatePassword = async function (senhaPlain) {
     return bcrypt.compare(senhaPlain, this.password);
   };
 
+  // Associações
   Gym.associate = function (models) {
+    // Gym → Users (muitos para muitos via UserGyms)
     Gym.belongsToMany(models.User, {
-      through: 'UserGyms',
+      through: models.UserGym,   // Use o model direto para evitar erro de alias
       foreignKey: 'gymId',
       as: 'users',
     });
+
+    // Gym → UserGym (um para muitos)
+      Gym.hasMany(models.UserGym, {
+        foreignKey: 'gymId',
+        as: 'gymUserGyms'
+    });
+
   };
 
   return Gym;

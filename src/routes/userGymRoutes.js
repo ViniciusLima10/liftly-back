@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const { registerAndLinkUser, getMyGym } = require('../controllers/userGymController');
 const authMiddleware = require('../middleware/authMiddleware');
-const { linkUserGym } = require('../controllers/userGymController');
 
 router.use(authMiddleware);
 
-router.post('/link', linkUserGym);
+router.post('/usergym/register', authMiddleware, registerAndLinkUser);
+router.get('/my-gym', authMiddleware, getMyGym);
 
 module.exports = router;

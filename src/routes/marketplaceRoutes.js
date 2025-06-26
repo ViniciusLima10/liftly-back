@@ -1,11 +1,16 @@
 const express = require('express');
 const authMiddleware = require("../middleware/authMiddleware");
 
-const {getPersonals, getPersonal, getNutritionists, getNutritionist} = require("../controllers/MaketplaceController");
+const {getPersonals, getPersonal, getNutritionists, getNutritionist, createService, deleteService, getServiceByProviderId} = require("../controllers/MaketplaceController");
 
 const router = express.Router();
 
 router.use(authMiddleware);
+
+router.post("/:providerId", createService);
+router.delete("/:id", deleteService);
+router.get('/service/:providerId', getServiceByProviderId);
+
 
 router.get("/personal", getPersonals);
 router.get("/personal/:id", getPersonal);
