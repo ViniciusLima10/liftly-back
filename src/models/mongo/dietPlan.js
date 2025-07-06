@@ -30,6 +30,7 @@ const dietPlanSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    nutritionistId: { type: String, required: true },
     refeicoes: [refeicoesSchema]
 })
 
