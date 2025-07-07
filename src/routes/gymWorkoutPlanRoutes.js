@@ -1,11 +1,16 @@
 const express = require('express');
+const authMiddleware = require('../middleware/authMiddleware');
+const gymWorkoutPlanController = require('../controllers/gymWorkoutPlanController');
+
 const router = express.Router();
-const gymWorkoutPlanController = require('../controllers/gymWorkoutPlanController')
 
+router.get('/user/:userID',    gymWorkoutPlanController.listarPorUsuario);
+router.get('/trainer/:trainerId', gymWorkoutPlanController.listarPorInstrutor);
 
-router.post('/', gymWorkoutPlanController.criar);
+router.use(authMiddleware);
 
-router.get('/:userID', gymWorkoutPlanController.listarPorUsuario);
+router.post('/',          gymWorkoutPlanController.criar);
+router.put('/:id',        gymWorkoutPlanController.atualizar);
+router.delete('/:id',     gymWorkoutPlanController.excluir);
 
-module.exports = router
-
+module.exports = router;
