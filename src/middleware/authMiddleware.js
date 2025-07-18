@@ -8,6 +8,7 @@ const inner = jwt({
 
 module.exports = (req, res, next) => {
   inner(req, res, err => {
+    
     if (err) return next(err);
     // copia o payload para req.user
     req.user = req.auth;

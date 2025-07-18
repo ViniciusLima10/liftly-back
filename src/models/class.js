@@ -40,6 +40,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      dayOfWeek: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+
     },
     {
       tableName: 'Classes',

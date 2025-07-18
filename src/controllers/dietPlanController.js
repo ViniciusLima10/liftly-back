@@ -1,36 +1,27 @@
 const dietPlan = require('../models/mongo/dietPlan');
-const { User } = require('../models'); // <- models/index.js deve exportar User
+const { User } = require('../models');
 
 const dietPlanController = {
-   async criar(req, res) {
+  async criar(req, res) {
     try {
-      const { studentEmail, refeicoes, nutritionistId } = req.body;
+      const { studentEmail, refeicoes, nutritionistId, nomeDieta } = req.body;
 
-      // Busca o aluno pelo email (banco relacional)
       const student = await User.findOne({ where: { email: studentEmail } });
-      if (!student) {
-        return res.status(404).json({ error: 'Aluno não encontrado.' });
-      }
+      if (!student) return res.status(404).json({ error: 'Aluno não encontrado.' });
+      if (!student.isStudent) return res.status(400).json({ error: 'Usuário encontrado não é um aluno.' });
 
-      // Confere se o usuário encontrado é aluno
-      if (!student.isStudent) {
-        return res.status(400).json({ error: 'Usuário encontrado não é um aluno.' });
-      }
-
-      // Busca o nutricionista com ID enviado no body
       const nutritionist = await User.findByPk(nutritionistId);
-      if (!nutritionist) {
-        return res.status(404).json({ error: 'Nutricionista não encontrado.' });
+      if (!nutritionist) return res.status(404).json({ error: 'Nutricionista não encontrado.' });
+      if (!nutritionist.isNutritionist) return res.status(400).json({ error: 'Usuário enviado não é um nutricionista.' });
+
+      // Armazena nomeDieta dentro da primeira refeição (sem alterar schema)
+      if (refeicoes.length > 0) {
+        refeicoes[0].nomeDietaVirtual = nomeDieta;
       }
 
-      if (!nutritionist.isNutritionist) {
-        return res.status(400).json({ error: 'Usuário enviado não é um nutricionista.' });
-      }
-
-      // Cria a dieta no MongoDB
       const dieta = await dietPlan.create({
-        userId: student.id,            // id do aluno (relacional)
-        nutritionistId: nutritionist.id, // id do nutricionista do body
+        userId: student.id,
+        nutritionistId: nutritionist.id,
         refeicoes
       });
 
@@ -41,16 +32,21 @@ const dietPlanController = {
     }
   },
 
-    async  listarPorUsuario(req, res){
-        const userId = req.params.userID
-        try{
-            const dieta = await dietPlan.find({ userId});
-            res.status(201).json(dieta);
-        } catch (err) {
-            res.status(500).json({ error: err.message});
-        }
-    },
-    async listarPorNutricionista(req, res) {
+  async listarPorUsuario(req, res) {
+    const userId = req.params.userID;
+    try {
+      const dietas = await dietPlan.find({ userId });
+      const resultado = dietas.map(d => ({
+        ...d.toObject(),
+        nomeDieta: d.refeicoes[0]?.nomeDietaVirtual || ''
+      }));
+      res.status(200).json(resultado);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  },
+
+  async listarPorNutricionista(req, res) {
     const nutritionistId = req.params.nutritionistId;
     try {
       const dietas = await dietPlan.find({ nutritionistId });
@@ -59,6 +55,48 @@ const dietPlanController = {
       res.status(500).json({ error: err.message });
     }
   },
-}
+
+  async buscarPorEmail(req, res) {
+    const email = decodeURIComponent(req.params.email);
+    try {
+      const student = await User.findOne({ where: { email } });
+      if (!student) return res.status(404).json({ error: 'Aluno não encontrado.' });
+
+      const dietas = await dietPlan.find({ userId: student.id });
+      if (!dietas || dietas.length === 0) return res.status(404).json({ error: 'Nenhuma dieta encontrada.' });
+
+      const resultado = dietas.map(d => ({
+        ...d.toObject(),
+        nomeDieta: d.refeicoes[0]?.nomeDietaVirtual || ''
+      }));
+
+      res.json({
+        userId: student.id,
+        dietas: resultado
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Erro ao buscar dieta.' });
+    }
+  },
+
+  async excluirPorIndice(req, res) {
+    const { userId, index } = req.params;
+    try {
+      const dietas = await dietPlan.find({ userId });
+      if (!dietas || dietas.length <= index) {
+        return res.status(404).json({ error: 'Dieta não encontrada.' });
+      }
+
+      const dietaParaExcluir = dietas[index];
+      await dietPlan.findByIdAndDelete(dietaParaExcluir._id);
+
+      res.status(200).json({ message: 'Dieta removida com sucesso.' });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Erro ao excluir dieta.' });
+    }
+  }
+};
 
 module.exports = dietPlanController;

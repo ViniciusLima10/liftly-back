@@ -31,7 +31,6 @@ app.use('/users', userRoutes);  // Definindo as rotas aqui, passando para o arqu
 app.use('/gyms', gymRoutes);
 app.use('/classes', classRoutes);
 app.use('/schedules', scheduleRoutes);
-app.use('/gymOccupancy', dietPlanRoutes);
 app.use('/dietPlan', dietPlanRoutes);
 app.use("/gymWorkoutPlan", gymWorkoutPlanRoutes);
 app.use("/marketplace", marketplaceRoutes);
@@ -48,3 +47,4 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`User service running on port ${PORT}`);
 });
+
